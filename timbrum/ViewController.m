@@ -11,6 +11,7 @@
 @interface ViewController()
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property (nonatomic, strong) NSMutableData *responseData;
+@property (nonatomic, strong) NSURLSession *session;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end
@@ -20,7 +21,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    // Create Session
+    _session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,12 +54,16 @@
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
     
-    NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request
-                                                                 delegate:self];
+//    NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request
+//                                                                 delegate:self];
     
     [request setHTTPMethod:@"POST"];
     NSString *postString = @"m_cUserName=SIMONE.GENOVESE&m_cPassword=passwordHere";
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionDataTask *postDataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        // The server answers with an error because it doesn't receive the params
+    }];
+    [postDataTask resume];
 }
 
 - (void) loadAccessLog{
@@ -64,12 +72,14 @@
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
     
-    NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request
-                                                                 delegate:self];
-    
     [request setHTTPMethod:@"POST"];
     NSString *postString = @"rows=10&startrow=0&count=true&cmdhash=49189db8b0d3c1ee6c2b37ef5dbd803&sqlcmd=rows%3Aushp_fgettimbrus&pDATE=2014-06-03";
-    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];}
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionDataTask *postDataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        // The server answers with an error because it doesn't receive the params
+    }];
+    [postDataTask resume];
+}
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     // A response has been received, this is where we initialize the instance var you created
