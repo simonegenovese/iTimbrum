@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EE30F27B193E3DD500A79F73 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F27A193E3DD500A79F73 /* Foundation.framework */; };
+		EE30F27D193E3DD500A79F73 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F27C193E3DD500A79F73 /* CoreGraphics.framework */; };
+		EE30F27F193E3DD500A79F73 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F27E193E3DD500A79F73 /* UIKit.framework */; };
+		EE30F285193E3DD500A79F73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE30F283193E3DD500A79F73 /* InfoPlist.strings */; };
+		EE30F287193E3DD500A79F73 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EE30F286193E3DD500A79F73 /* main.m */; };
+		EE30F28B193E3DD500A79F73 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE30F28A193E3DD500A79F73 /* AppDelegate.m */; };
+		EE30F28E193E3DD500A79F73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE30F28C193E3DD500A79F73 /* Main.storyboard */; };
+		EE30F291193E3DD500A79F73 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE30F290193E3DD500A79F73 /* ViewController.m */; };
+		EE30F293193E3DD500A79F73 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE30F292193E3DD500A79F73 /* Images.xcassets */; };
+		EE30F29A193E3DD500A79F73 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F299193E3DD500A79F73 /* XCTest.framework */; };
+		EE30F29B193E3DD500A79F73 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F27A193E3DD500A79F73 /* Foundation.framework */; };
+		EE30F29C193E3DD500A79F73 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F27E193E3DD500A79F73 /* UIKit.framework */; };
+		EE30F2A4193E3DD500A79F73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE30F2A2193E3DD500A79F73 /* InfoPlist.strings */; };
+		EE30F2A6193E3DD500A79F73 /* timbrumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE30F2A5193E3DD500A79F73 /* timbrumTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EE30F29D193E3DD500A79F73 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE30F26F193E3DD500A79F73 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE30F276193E3DD500A79F73;
+			remoteInfo = timbrum;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EE30F277193E3DD500A79F73 /* iTimbrum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTimbrum.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE30F27A193E3DD500A79F73 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EE30F27C193E3DD500A79F73 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EE30F27E193E3DD500A79F73 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EE30F282193E3DD500A79F73 /* iTimbrum-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iTimbrum-Info.plist"; sourceTree = "<group>"; };
+		EE30F284193E3DD500A79F73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EE30F286193E3DD500A79F73 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EE30F288193E3DD500A79F73 /* iTimbrum-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iTimbrum-Prefix.pch"; sourceTree = "<group>"; };
+		EE30F289193E3DD500A79F73 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		EE30F28A193E3DD500A79F73 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		EE30F28D193E3DD500A79F73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EE30F28F193E3DD500A79F73 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		EE30F290193E3DD500A79F73 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		EE30F292193E3DD500A79F73 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EE30F298193E3DD500A79F73 /* iTimbrumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTimbrumTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE30F299193E3DD500A79F73 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		EE30F2A1193E3DD500A79F73 /* iTimbrumTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iTimbrumTests-Info.plist"; sourceTree = "<group>"; };
+		EE30F2A3193E3DD500A79F73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EE30F2A5193E3DD500A79F73 /* timbrumTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = timbrumTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EE30F274193E3DD500A79F73 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE30F27D193E3DD500A79F73 /* CoreGraphics.framework in Frameworks */,
+				EE30F27F193E3DD500A79F73 /* UIKit.framework in Frameworks */,
+				EE30F27B193E3DD500A79F73 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE30F295193E3DD500A79F73 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE30F29A193E3DD500A79F73 /* XCTest.framework in Frameworks */,
+				EE30F29C193E3DD500A79F73 /* UIKit.framework in Frameworks */,
+				EE30F29B193E3DD500A79F73 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EE30F26E193E3DD500A79F73 = {
+			isa = PBXGroup;
+			children = (
+				EE30F280193E3DD500A79F73 /* timbrum */,
+				EE30F29F193E3DD500A79F73 /* timbrumTests */,
+				EE30F279193E3DD500A79F73 /* Frameworks */,
+				EE30F278193E3DD500A79F73 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EE30F278193E3DD500A79F73 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE30F277193E3DD500A79F73 /* iTimbrum.app */,
+				EE30F298193E3DD500A79F73 /* iTimbrumTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EE30F279193E3DD500A79F73 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EE30F27A193E3DD500A79F73 /* Foundation.framework */,
+				EE30F27C193E3DD500A79F73 /* CoreGraphics.framework */,
+				EE30F27E193E3DD500A79F73 /* UIKit.framework */,
+				EE30F299193E3DD500A79F73 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EE30F280193E3DD500A79F73 /* timbrum */ = {
+			isa = PBXGroup;
+			children = (
+				EE30F289193E3DD500A79F73 /* AppDelegate.h */,
+				EE30F28A193E3DD500A79F73 /* AppDelegate.m */,
+				EE30F28C193E3DD500A79F73 /* Main.storyboard */,
+				EE30F28F193E3DD500A79F73 /* ViewController.h */,
+				EE30F290193E3DD500A79F73 /* ViewController.m */,
+				EE30F292193E3DD500A79F73 /* Images.xcassets */,
+				EE30F281193E3DD500A79F73 /* Supporting Files */,
+			);
+			path = timbrum;
+			sourceTree = "<group>";
+		};
+		EE30F281193E3DD500A79F73 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EE30F282193E3DD500A79F73 /* iTimbrum-Info.plist */,
+				EE30F283193E3DD500A79F73 /* InfoPlist.strings */,
+				EE30F286193E3DD500A79F73 /* main.m */,
+				EE30F288193E3DD500A79F73 /* iTimbrum-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EE30F29F193E3DD500A79F73 /* timbrumTests */ = {
+			isa = PBXGroup;
+			children = (
+				EE30F2A5193E3DD500A79F73 /* timbrumTests.m */,
+				EE30F2A0193E3DD500A79F73 /* Supporting Files */,
+			);
+			path = timbrumTests;
+			sourceTree = "<group>";
+		};
+		EE30F2A0193E3DD500A79F73 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EE30F2A1193E3DD500A79F73 /* iTimbrumTests-Info.plist */,
+				EE30F2A2193E3DD500A79F73 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE30F276193E3DD500A79F73 /* iTimbrum */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE30F2A9193E3DD500A79F73 /* Build configuration list for PBXNativeTarget "iTimbrum" */;
+			buildPhases = (
+				EE30F273193E3DD500A79F73 /* Sources */,
+				EE30F274193E3DD500A79F73 /* Frameworks */,
+				EE30F275193E3DD500A79F73 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iTimbrum;
+			productName = timbrum;
+			productReference = EE30F277193E3DD500A79F73 /* iTimbrum.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EE30F297193E3DD500A79F73 /* iTimbrumTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE30F2AC193E3DD500A79F73 /* Build configuration list for PBXNativeTarget "iTimbrumTests" */;
+			buildPhases = (
+				EE30F294193E3DD500A79F73 /* Sources */,
+				EE30F295193E3DD500A79F73 /* Frameworks */,
+				EE30F296193E3DD500A79F73 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE30F29E193E3DD500A79F73 /* PBXTargetDependency */,
+			);
+			name = iTimbrumTests;
+			productName = timbrumTests;
+			productReference = EE30F298193E3DD500A79F73 /* iTimbrumTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE30F26F193E3DD500A79F73 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = SimoneGenovese;
+				TargetAttributes = {
+					EE30F297193E3DD500A79F73 = {
+						TestTargetID = EE30F276193E3DD500A79F73;
+					};
+				};
+			};
+			buildConfigurationList = EE30F272193E3DD500A79F73 /* Build configuration list for PBXProject "iTimbrum" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EE30F26E193E3DD500A79F73;
+			productRefGroup = EE30F278193E3DD500A79F73 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE30F276193E3DD500A79F73 /* iTimbrum */,
+				EE30F297193E3DD500A79F73 /* iTimbrumTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EE30F275193E3DD500A79F73 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE30F293193E3DD500A79F73 /* Images.xcassets in Resources */,
+				EE30F285193E3DD500A79F73 /* InfoPlist.strings in Resources */,
+				EE30F28E193E3DD500A79F73 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE30F296193E3DD500A79F73 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE30F2A4193E3DD500A79F73 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE30F273193E3DD500A79F73 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE30F291193E3DD500A79F73 /* ViewController.m in Sources */,
+				EE30F28B193E3DD500A79F73 /* AppDelegate.m in Sources */,
+				EE30F287193E3DD500A79F73 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE30F294193E3DD500A79F73 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE30F2A6193E3DD500A79F73 /* timbrumTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EE30F29E193E3DD500A79F73 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE30F276193E3DD500A79F73 /* iTimbrum */;
+			targetProxy = EE30F29D193E3DD500A79F73 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EE30F283193E3DD500A79F73 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE30F284193E3DD500A79F73 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EE30F28C193E3DD500A79F73 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE30F28D193E3DD500A79F73 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EE30F2A2193E3DD500A79F73 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE30F2A3193E3DD500A79F73 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EE30F2A7193E3DD500A79F73 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		EE30F2A8193E3DD500A79F73 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EE30F2AA193E3DD500A79F73 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "timbrum/iTimbrum-Prefix.pch";
+				INFOPLIST_FILE = "timbrum/iTimbrum-Info.plist";
+				PRODUCT_NAME = iTimbrum;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EE30F2AB193E3DD500A79F73 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "timbrum/iTimbrum-Prefix.pch";
+				INFOPLIST_FILE = "timbrum/iTimbrum-Info.plist";
+				PRODUCT_NAME = iTimbrum;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		EE30F2AD193E3DD500A79F73 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/timbrum.app/timbrum";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "timbrum/timbrum-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "timbrumTests/iTimbrumTests-Info.plist";
+				PRODUCT_NAME = iTimbrumTests;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		EE30F2AE193E3DD500A79F73 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/timbrum.app/timbrum";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "timbrum/timbrum-Prefix.pch";
+				INFOPLIST_FILE = "timbrumTests/iTimbrumTests-Info.plist";
+				PRODUCT_NAME = iTimbrumTests;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE30F272193E3DD500A79F73 /* Build configuration list for PBXProject "iTimbrum" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE30F2A7193E3DD500A79F73 /* Debug */,
+				EE30F2A8193E3DD500A79F73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE30F2A9193E3DD500A79F73 /* Build configuration list for PBXNativeTarget "iTimbrum" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE30F2AA193E3DD500A79F73 /* Debug */,
+				EE30F2AB193E3DD500A79F73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EE30F2AC193E3DD500A79F73 /* Build configuration list for PBXNativeTarget "iTimbrumTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE30F2AD193E3DD500A79F73 /* Debug */,
+				EE30F2AE193E3DD500A79F73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EE30F26F193E3DD500A79F73 /* Project object */;
+}
