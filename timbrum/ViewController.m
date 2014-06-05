@@ -11,9 +11,9 @@
 @interface ViewController()
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property (nonatomic, strong) NSMutableData *responseData;
-@property (nonatomic, strong) NSURLSession *session;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) NSURLSession *session;
+@property (weak, nonatomic) IBOutlet UISwitch *connect;
 
 @end
 
@@ -22,10 +22,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    // Create Session
-    _session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
+    NSURLSessionConfiguration *sessionConfig =
+    [NSURLSessionConfiguration defaultSessionConfiguration];
+
+    _session = [NSURLSession sessionWithConfiguration: sessionConfig delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+
+	
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,7 +41,6 @@
 - (IBAction)sliderAction:(id)sender {
     if ([_slider value] == [_slider maximumValue]) {
         NSLog(@"Enter");
-        [self sendEnterRequest];
       
     } else if ([_slider value] == [_slider minimumValue]){
         NSLog(@"Exit");
@@ -48,22 +49,44 @@
        [_slider setValue:([_slider maximumValue]-[_slider minimumValue])/2 animated:true];
     [_slider reloadInputViews];
 }
+- (IBAction)loginAction:(id)sender {
+    if ([_connect isOn]) {
+        [self sendLoginRequest];
+    }
+}
 
-- (void)sendEnterRequest{
+- (void)sendLoginRequest{
+    NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * password = [standardUserDefaults objectForKey:@"pass_preference"];
+    NSString * username = [standardUserDefaults objectForKey:@"name_preference"];
+
+    
+    
     NSURL *aUrl = [NSURL URLWithString:@"https://saas.hrzucchetti.it/hrpergon/servlet/cp_login"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:aUrl
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
-    
-//    NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request
-//                                                                 delegate:self];
-    
+    NSString *postString = [[NSMutableString alloc ] initWithFormat: @"m_cUserName=%@&m_cPassword=%@&m_cAction=login",username,password];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    NSURLSessionDataTask *postDataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        // The server answers with an error because it doesn't receive the params
-    }];
-    [postDataTask resume];
+    NSURLSessionDataTask * dataTask =[_session dataTaskWithRequest:request
+                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                           NSLog(@"Response:%@ %@\n", response, error);
+                                                           if(error == nil)
+                                                           {
+                                                               NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                               NSLog(@"Data = %@",text);
+                                                               [_webView loadData:data MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
+                                                               if(![[[response URL] absoluteString] isEqualToString:@"https://saas.hrzucchetti.it/hrpergon/servlet/../../hrpergon/servlet/../jsp/home.jsp"]){
+                                                                   [_connect setOn:false];
+                                                                 }
+                                                           }else{
+                                                               [_connect setOn:false];
+                                                           }
+                                                           
+                                                       }];
+    [dataTask resume];
+
 }
 
 - (void) loadAccessLog{
@@ -71,14 +94,22 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:aUrl
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
-    
-    [request setHTTPMethod:@"POST"];
     NSString *postString = @"rows=10&startrow=0&count=true&cmdhash=49189db8b0d3c1ee6c2b37ef5dbd803&sqlcmd=rows%3Aushp_fgettimbrus&pDATE=2014-06-03";
+    [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    NSURLSessionDataTask *postDataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        // The server answers with an error because it doesn't receive the params
-    }];
-    [postDataTask resume];
+    NSURLSessionDataTask * dataTask =[_session dataTaskWithRequest:request
+                                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                     NSLog(@"Response:%@ %@\n", response, error);
+
+                                                     if(error == nil)
+                                                     {
+                                                         NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                         NSLog(@"Data = %@",text);
+                                                         [_webView loadData:data MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
+                                                     }
+                                                     
+                                                 }];
+    [dataTask resume];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
