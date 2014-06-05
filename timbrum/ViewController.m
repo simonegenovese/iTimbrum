@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSMutableData *responseData;
 @property (nonatomic, strong) NSURLSession *session;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (nonatomic, strong) NSURLSession *session;
 
 @end
 
@@ -58,7 +59,6 @@
 //                                                                 delegate:self];
     
     [request setHTTPMethod:@"POST"];
-    NSString *postString = @"m_cUserName=SIMONE.GENOVESE&m_cPassword=passwordHere";
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     NSURLSessionDataTask *postDataTask = [_session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         // The server answers with an error because it doesn't receive the params
