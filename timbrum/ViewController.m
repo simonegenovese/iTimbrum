@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) NSURLSession *session;
 @property (weak, nonatomic) IBOutlet UISwitch *connect;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -24,9 +25,9 @@
     [super viewDidLoad];
     NSURLSessionConfiguration *sessionConfig =
     [NSURLSessionConfiguration defaultSessionConfiguration];
-
+    
     _session = [NSURLSession sessionWithConfiguration: sessionConfig delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
-
+    
 	
 }
 
@@ -41,14 +42,17 @@
 - (IBAction)sliderAction:(id)sender {
     if ([_slider value] == [_slider maximumValue]) {
         NSLog(@"Enter");
-      
+        [self timbra:@"E"];
+        [self loadAccessLog];
     } else if ([_slider value] == [_slider minimumValue]){
         NSLog(@"Exit");
+        [self timbra:@"U"];
         [self loadAccessLog];
     }
-       [_slider setValue:([_slider maximumValue]-[_slider minimumValue])/2 animated:true];
+    [_slider setValue:([_slider maximumValue]-[_slider minimumValue])/2 animated:true];
     [_slider reloadInputViews];
 }
+
 - (IBAction)loginAction:(id)sender {
     if ([_connect isOn]) {
         [self sendLoginRequest];
@@ -59,7 +63,7 @@
     NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSString * password = [standardUserDefaults objectForKey:@"pass_preference"];
     NSString * username = [standardUserDefaults objectForKey:@"name_preference"];
-
+    
     
     
     NSURL *aUrl = [NSURL URLWithString:@"https://saas.hrzucchetti.it/hrpergon/servlet/cp_login"];
@@ -70,37 +74,72 @@
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     NSURLSessionDataTask * dataTask =[_session dataTaskWithRequest:request
-                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                           NSLog(@"Response:%@ %@\n", response, error);
-                                                           if(error == nil)
-                                                           {
-                                                               NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-                                                               NSLog(@"Data = %@",text);
-                                                               [_webView loadData:data MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
-                                                               if(![[[response URL] absoluteString] isEqualToString:@"https://saas.hrzucchetti.it/hrpergon/servlet/../../hrpergon/servlet/../jsp/home.jsp"]){
-                                                                   [_connect setOn:false];
-                                                                 }
-                                                           }else{
-                                                               [_connect setOn:false];
-                                                           }
-                                                           
-                                                       }];
+                                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                     NSLog(@"Response:%@ %@\n", response, error);
+                                                     if(error == nil)
+                                                     {
+                                                         NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                         NSLog(@"Data = %@",text);
+                                                         [_webView loadData:data MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
+                                                         if(![[[response URL] absoluteString] isEqualToString:@"https://saas.hrzucchetti.it/hrpergon/servlet/../../hrpergon/servlet/../jsp/home.jsp"]){
+                                                             [_connect setOn:false];
+                                                         } else {
+                                                             [self loadAccessLog];
+                                                         }
+                                                     }else{
+                                                         [_connect setOn:false];
+                                                     }
+                                                     
+                                                 }];
     [dataTask resume];
-
+    
 }
 
 - (void) loadAccessLog{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
+    NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+    
     NSURL *aUrl = [NSURL URLWithString:@"https://saas.hrzucchetti.it/hrpergon/servlet/SQLDataProviderServer"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:aUrl
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
-    NSString *postString = @"rows=10&startrow=0&count=true&cmdhash=49189db8b0d3c1ee6c2b37ef5dbd803&sqlcmd=rows%3Aushp_fgettimbrus&pDATE=2014-06-03";
+    NSString *postString =[[NSString alloc] initWithFormat:@"rows=10&startrow=0&count=true&cmdhash=49189db8b0d3c1ee6c2b37ef5dbd803&sqlcmd=rows%%3Aushp_fgettimbrus&pDATE=%@",dateString];
+    
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     NSURLSessionDataTask * dataTask =[_session dataTaskWithRequest:request
                                                  completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                      NSLog(@"Response:%@ %@\n", response, error);
+                                                     
+                                                     if(error == nil)
+                                                     {
+                                                         NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                         NSLog(@"Data = %@",text);
+                                                         [_webView loadData:data MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
+                                                         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+                                                         NSArray *iPhoneModels = [NSArray arrayWithArray:[json objectForKey:@"Data"]];
+                                                     }
+                                                     
+                                                 }];
+    [dataTask resume];
+}
 
+
+- (void)timbra:(NSString *) cartellino{
+    NSURL *aUrl = [NSURL URLWithString:@"https://saas.hrzucchetti.it/hrpergon/servlet/ushp_ftimbrus"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:aUrl
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:60.0];
+    NSString *postString =[[NSString alloc] initWithFormat:@"verso=%@",cartellino];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionDataTask * dataTask =[_session dataTaskWithRequest:request
+                                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                     NSLog(@"Response:%@ %@\n", response, error);
+                                                     
                                                      if(error == nil)
                                                      {
                                                          NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
@@ -110,6 +149,7 @@
                                                      
                                                  }];
     [dataTask resume];
+
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
