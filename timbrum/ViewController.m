@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property (nonatomic, strong) NSMutableData *responseData;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (nonatomic, strong) NSURLSession *session;
 
 @end
 
@@ -20,6 +21,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSURLSessionConfiguration *sessionConfig =
+    [NSURLSessionConfiguration defaultSessionConfiguration];
+
+    _session = [NSURLSession sessionWithConfiguration: sessionConfig delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+
 	
 }
 
@@ -49,13 +55,22 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:aUrl
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
-    
-    NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request
-                                                                 delegate:self];
-    
+    NSString *postString = @"m_cUserName=SIMONE.GENOVESE&m_cPassword=pass&m_cAction=login";
     [request setHTTPMethod:@"POST"];
-    NSString *postString = @"m_cUserName=SIMONE.GENOVESE&m_cPassword=passwordHere";
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionDataTask * dataTask =[_session dataTaskWithRequest:request
+                                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                           NSLog(@"Response:%@ %@\n", response, error);
+                                                           if(error == nil)
+                                                           {
+                                                               NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                               NSLog(@"Data = %@",text);
+                                                               [_webView loadData:data MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
+                                                           }
+                                                           
+                                                       }];
+    [dataTask resume];
+
 }
 
 - (void) loadAccessLog{
@@ -63,13 +78,23 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:aUrl
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
-    
-    NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request
-                                                                 delegate:self];
-    
-    [request setHTTPMethod:@"POST"];
     NSString *postString = @"rows=10&startrow=0&count=true&cmdhash=49189db8b0d3c1ee6c2b37ef5dbd803&sqlcmd=rows%3Aushp_fgettimbrus&pDATE=2014-06-03";
-    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];}
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionDataTask * dataTask =[_session dataTaskWithRequest:request
+                                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                     NSLog(@"Response:%@ %@\n", response, error);
+
+                                                     if(error == nil)
+                                                     {
+                                                         NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                         NSLog(@"Data = %@",text);
+                                                         [_webView loadData:data MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
+                                                     }
+                                                     
+                                                 }];
+    [dataTask resume];
+}
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     // A response has been received, this is where we initialize the instance var you created
