@@ -80,12 +80,24 @@
 }
 
 -(void) loadNewDataList:(NSArray*) array{
-    [_dataList addObjectsFromArray: array];
-    NSMutableString *logs = [[NSMutableString alloc] initWithString:@"<html><head></head><body style='color:white;background-color: transparent;'>"];
-    for (int i =0; i<[_dataList count]; i++) {
-       [logs appendFormat:@"%@",[_dataList objectAtIndex:i]];
+    NSMutableString *logs = [[NSMutableString alloc] initWithString:@"<html><head></head><body style='color:white;background-color: transparent;'><table border='0' align='center'>"];
+    for (int i =0; i<[array count]-1; i++) {
+        NSString *timbratura = [[array objectAtIndex:i] objectAtIndex:2] ;
+        if ([timbratura isEqualToString:@"U"]) {
+            [logs appendString:@"<tr><td width='20%' bgcolor='#FF0000'>"];
+        }else {
+            [logs appendString:@"<tr><td width='20%' bgcolor='#00FF00'>"];
+        }
+        
+        [logs appendFormat:@"<font color='#FFFFFF'>%@</font></td>",timbratura];
+
+        NSString *data = [[array objectAtIndex:i] objectAtIndex:0] ;
+        [logs appendFormat:@"<td width='80%'>%@</td>",data];
+
+        NSString *ora = [[array objectAtIndex:i] objectAtIndex:1] ;
+        [logs appendFormat:@"<td width='30%'>%@</td></tr>",ora];
     }
-    [logs appendString:@"</body></html>"];
+    [logs appendString:@"</table></body></html>"];
 
     [_webView loadHTMLString:logs baseURL:nil];
 
