@@ -1,71 +1,33 @@
 //
-//  ViewController.m
-//  timbrum
+//  ZucchettiConnector.m
+//  iTimbrum
 //
-//  Created by Simone Genovese on 03/06/14.
+//  Created by Simone Genovese on 05/06/14.
 //  Copyright (c) 2014 SimoneGenovese. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ZucchettiConnector.h"
 
-@interface ViewController()
-@property (weak, nonatomic) IBOutlet UISlider *slider;
-@property (nonatomic, strong) NSMutableData *responseData;
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
-@property (nonatomic, strong) NSURLSession *session;
-@property (weak, nonatomic) IBOutlet UISwitch *connect;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface ZucchettiConnector() {
+    NSURLSession *session;
+    ViewController *mainView;
+}
 
 @end
+@implementation ZucchettiConnector
 
-@implementation ViewController
+@synthesize session,mainView;
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+- (id)init{
     NSURLSessionConfiguration *sessionConfig =
     [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    _session = [NSURLSession sessionWithConfiguration: sessionConfig delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
-    
-	
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-    [_slider setContinuous: NO];
+  
+    session = [NSURLSession sessionWithConfiguration: sessionConfig delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+        return self;
 }
 
 
-- (IBAction)sliderAction:(id)sender {
-    if ([_slider value] == [_slider maximumValue]) {
-        NSLog(@"Enter");
-        [self timbra:@"E"];
-        [self loadAccessLog];
-    } else if ([_slider value] == [_slider minimumValue]){
-        NSLog(@"Exit");
-        [self timbra:@"U"];
-        [self loadAccessLog];
-    }
-    [_slider setValue:([_slider maximumValue]-[_slider minimumValue])/2 animated:true];
-    [_slider reloadInputViews];
-}
-
-- (IBAction)loginAction:(id)sender {
-    if ([_connect isOn]) {
-        [self sendLoginRequest];
-    }
-}
-
-- (void)sendLoginRequest{
-    NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * password = [standardUserDefaults objectForKey:@"pass_preference"];
-    NSString * username = [standardUserDefaults objectForKey:@"name_preference"];
-    
-    
-    
+- (void)sendLoginRequest: (NSString*) username password: (NSString*) password{
     NSURL *aUrl = [NSURL URLWithString:@"https://saas.hrzucchetti.it/hrpergon/servlet/cp_login"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:aUrl
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
@@ -73,21 +35,19 @@
     NSString *postString = [[NSMutableString alloc ] initWithFormat: @"m_cUserName=%@&m_cPassword=%@&m_cAction=login",username,password];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    NSURLSessionDataTask * dataTask =[_session dataTaskWithRequest:request
+    NSURLSessionDataTask * dataTask =[session dataTaskWithRequest:request
                                                  completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                      NSLog(@"Response:%@ %@\n", response, error);
                                                      if(error == nil)
                                                      {
                                                          NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
                                                          NSLog(@"Data = %@",text);
-                                                         [_webView loadData:data MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
                                                          if(![[[response URL] absoluteString] isEqualToString:@"https://saas.hrzucchetti.it/hrpergon/servlet/../../hrpergon/servlet/../jsp/home.jsp"]){
-                                                             [_connect setOn:false];
+                                                             NSString *myHTML = @"<html><body><h2>Accesso non riuscito!</h2>Il servizio potrebbe non funzionare correttamente o le credenziali essere invialide.</body></html>";
+                                                             [mainView loadHTML:data];
                                                          } else {
                                                              [self loadAccessLog];
                                                          }
-                                                     }else{
-                                                         [_connect setOn:false];
                                                      }
                                                      
                                                  }];
@@ -109,7 +69,7 @@
     
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    NSURLSessionDataTask * dataTask =[_session dataTaskWithRequest:request
+    NSURLSessionDataTask * dataTask =[session dataTaskWithRequest:request
                                                  completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                      NSLog(@"Response:%@ %@\n", response, error);
                                                      
@@ -117,9 +77,10 @@
                                                      {
                                                          NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
                                                          NSLog(@"Data = %@",text);
-                                                         [_webView loadData:data MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
                                                          NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
                                                          NSArray *iPhoneModels = [NSArray arrayWithArray:[json objectForKey:@"Data"]];
+                                
+                                                         [mainView loadNewDataList:iPhoneModels];
                                                      }
                                                      
                                                  }];
@@ -136,7 +97,7 @@
     
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    NSURLSessionDataTask * dataTask =[_session dataTaskWithRequest:request
+    NSURLSessionDataTask * dataTask =[session dataTaskWithRequest:request
                                                  completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                      NSLog(@"Response:%@ %@\n", response, error);
                                                      
@@ -144,43 +105,12 @@
                                                      {
                                                          NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
                                                          NSLog(@"Data = %@",text);
-                                                         [_webView loadData:data MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
+                                                         [mainView loadHTML:data];
                                                      }
                                                      
                                                  }];
     [dataTask resume];
-
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    // A response has been received, this is where we initialize the instance var you created
-    // so that we can append data to it in the didReceiveData method
-    // Furthermore, this method is called each time there is a redirect so reinitializing it
-    // also serves to clear it
-    _responseData = [[NSMutableData alloc] init];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    // Append the new data to the instance variable you declared
-    [_responseData appendData:data];
-}
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
-    [_webView loadData:_responseData MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
-    NSLog([_responseData description]);
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    // The request has failed for some reason!
-    // Check the error var
+    
 }
 
 @end

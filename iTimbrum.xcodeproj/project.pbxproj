@@ -22,6 +22,7 @@
 		EE30F29C193E3DD500A79F73 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F27E193E3DD500A79F73 /* UIKit.framework */; };
 		EE30F2A4193E3DD500A79F73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE30F2A2193E3DD500A79F73 /* InfoPlist.strings */; };
 		EE30F2A6193E3DD500A79F73 /* timbrumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE30F2A5193E3DD500A79F73 /* timbrumTests.m */; };
+		EE514C0E19410AB600A9EE42 /* ZucchettiConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = EE514C0D19410AB600A9EE42 /* ZucchettiConnector.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		EE30F2A1193E3DD500A79F73 /* iTimbrumTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iTimbrumTests-Info.plist"; sourceTree = "<group>"; };
 		EE30F2A3193E3DD500A79F73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EE30F2A5193E3DD500A79F73 /* timbrumTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = timbrumTests.m; sourceTree = "<group>"; };
+		EE514C0C19410AB600A9EE42 /* ZucchettiConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZucchettiConnector.h; sourceTree = "<group>"; };
+		EE514C0D19410AB600A9EE42 /* ZucchettiConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZucchettiConnector.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,8 @@
 				EE30F290193E3DD500A79F73 /* ViewController.m */,
 				EE30F292193E3DD500A79F73 /* Images.xcassets */,
 				EE30F281193E3DD500A79F73 /* Supporting Files */,
+				EE514C0C19410AB600A9EE42 /* ZucchettiConnector.h */,
+				EE514C0D19410AB600A9EE42 /* ZucchettiConnector.m */,
 			);
 			path = timbrum;
 			sourceTree = "<group>";
@@ -254,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE30F291193E3DD500A79F73 /* ViewController.m in Sources */,
+				EE514C0E19410AB600A9EE42 /* ZucchettiConnector.m in Sources */,
 				EE30F28B193E3DD500A79F73 /* AppDelegate.m in Sources */,
 				EE30F287193E3DD500A79F73 /* main.m in Sources */,
 			);
