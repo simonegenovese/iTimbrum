@@ -44,7 +44,7 @@
                                                          NSLog(@"Data = %@",text);
                                                          if(![[[response URL] absoluteString] isEqualToString:@"https://saas.hrzucchetti.it/hrpergon/servlet/../../hrpergon/servlet/../jsp/home.jsp"]){
                                                              NSString *myHTML = @"<html><body><h2>Accesso non riuscito!</h2>Il servizio potrebbe non funzionare correttamente o le credenziali essere invialide.</body></html>";
-                                                             [mainView loadHTML:data];
+                                                             [mainView loadHTML:myHTML];
                                                          } else {
                                                              [self loadAccessLog];
                                                          }
@@ -105,7 +105,7 @@
                                                      {
                                                          NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
                                                          NSLog(@"Data = %@",text);
-                                                         [mainView loadHTML:data];
+                                                         [mainView loadHTML:text];
                                                      }
                                                      
                                                  }];

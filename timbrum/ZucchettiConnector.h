@@ -17,7 +17,6 @@
 
 @property (readonly) NSURLSession *session;
 @property (readwrite) ViewController *mainView;
-@property (readwrite) TableViewController *tableView;
 
 - (void)sendLoginRequest: (NSString*) username password: (NSString*) password;
 

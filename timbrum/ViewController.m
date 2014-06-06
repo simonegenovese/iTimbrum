@@ -19,7 +19,6 @@
 @implementation ViewController
 
 @synthesize connecctor = _connecctor;
-@synthesize tableView = _tableView;
 
 
 
@@ -33,7 +32,6 @@
     _connecctor = [[ZucchettiConnector alloc] init];
     [_connecctor setMainView:self];
     _dataList = [[NSMutableArray alloc]init];
-    _tableView.dataSource = self;
     }
 
 -(void)becomeActive:(NSNotification *)notification {
@@ -73,13 +71,24 @@
 }
 
 
--(void) loadHTML:(NSData *) data{
-    [_webView loadData:data MIMEType: @"text/html" textEncodingName: @"UTF-8" baseURL:nil];
+-(void) loadHTML:(NSString *) data{
+    NSMutableString *logs = [[NSMutableString alloc] initWithString:@"<html><head></head><body style='color:white;background-color: transparent;'>"];
+    [logs appendString:data];
+    [logs appendString:@"</body></html>"];
+
+    [_webView loadHTMLString:logs baseURL:nil];
 }
 
 -(void) loadNewDataList:(NSArray*) array{
     [_dataList addObjectsFromArray: array];
-    [_tableView  reloadData];
+    NSMutableString *logs = [[NSMutableString alloc] initWithString:@"<html><head></head><body style='color:white;background-color: transparent;'>"];
+    for (int i =0; i<[_dataList count]; i++) {
+       [logs appendFormat:@"%@",[_dataList objectAtIndex:i]];
+    }
+    [logs appendString:@"</body></html>"];
+
+    [_webView loadHTMLString:logs baseURL:nil];
+
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

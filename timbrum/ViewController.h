@@ -15,7 +15,7 @@
 @property (nonatomic, retain) UITableView *tableView;
 @property (readwrite) ZucchettiConnector *connecctor;
 
--(void) loadHTML:(NSData *) data;
+-(void) loadHTML:(NSString *) data;
 
 -(void) loadNewDataList:(NSArray*) array;
 @end
