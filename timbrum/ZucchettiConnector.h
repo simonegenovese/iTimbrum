@@ -12,7 +12,6 @@
 #import "ViewController.h"
 #endif
 @class ViewController;
-@class TableViewController;
 @interface ZucchettiConnector : NSObject
 
 @property (readonly) NSURLSession *session;

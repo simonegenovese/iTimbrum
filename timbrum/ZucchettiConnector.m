@@ -21,9 +21,9 @@
 - (id)init{
     NSURLSessionConfiguration *sessionConfig =
     [NSURLSessionConfiguration defaultSessionConfiguration];
-  
+    
     session = [NSURLSession sessionWithConfiguration: sessionConfig delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
-        return self;
+    return self;
 }
 
 
@@ -36,21 +36,21 @@
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     NSURLSessionDataTask * dataTask =[session dataTaskWithRequest:request
-                                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                     NSLog(@"Response:%@ %@\n", response, error);
-                                                     if(error == nil)
-                                                     {
-                                                         NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-                                                         NSLog(@"Data = %@",text);
-                                                         if(![[[response URL] absoluteString] isEqualToString:@"https://saas.hrzucchetti.it/hrpergon/servlet/../../hrpergon/servlet/../jsp/home.jsp"]){
-                                                             NSString *myHTML = @"<html><body><h2>Accesso non riuscito!</h2>Il servizio potrebbe non funzionare correttamente o le credenziali essere invialide.</body></html>";
-                                                             [mainView loadHTML:myHTML];
-                                                         } else {
-                                                             [self loadAccessLog];
-                                                         }
-                                                     }
-                                                     
-                                                 }];
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                    NSLog(@"Response:%@ %@\n", response, error);
+                                                    if(error == nil)
+                                                    {
+                                                        NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                        NSLog(@"Data = %@",text);
+                                                        if(![[[response URL] absoluteString] isEqualToString:@"https://saas.hrzucchetti.it/hrpergon/servlet/../../hrpergon/servlet/../jsp/home.jsp"]){
+                                                            NSString *myHTML = @"<html><body><h2>Accesso non riuscito!</h2>Il servizio potrebbe non funzionare correttamente o le credenziali essere invialide.</body></html>";
+                                                            [mainView loadHTML:myHTML];
+                                                        } else {
+                                                            [self loadAccessLog];
+                                                        }
+                                                    }
+                                                    
+                                                }];
     [dataTask resume];
     
 }
@@ -70,20 +70,20 @@
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     NSURLSessionDataTask * dataTask =[session dataTaskWithRequest:request
-                                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                     NSLog(@"Response:%@ %@\n", response, error);
-                                                     
-                                                     if(error == nil)
-                                                     {
-                                                         NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-                                                         NSLog(@"Data = %@",text);
-                                                         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-                                                         NSArray *iPhoneModels = [NSArray arrayWithArray:[json objectForKey:@"Data"]];
-                                
-                                                         [mainView loadNewDataList:iPhoneModels];
-                                                     }
-                                                     
-                                                 }];
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                    NSLog(@"Response:%@ %@\n", response, error);
+                                                    
+                                                    if(error == nil)
+                                                    {
+                                                        NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                        NSLog(@"Data = %@",text);
+                                                        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+                                                        NSArray *iPhoneModels = [NSArray arrayWithArray:[json objectForKey:@"Data"]];
+                                                        
+                                                        [mainView loadNewDataList:iPhoneModels];
+                                                    }
+                                                    
+                                                }];
     [dataTask resume];
 }
 
@@ -98,17 +98,17 @@
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     NSURLSessionDataTask * dataTask =[session dataTaskWithRequest:request
-                                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                     NSLog(@"Response:%@ %@\n", response, error);
-                                                     
-                                                     if(error == nil)
-                                                     {
-                                                         NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-                                                         NSLog(@"Data = %@",text);
-                                                         [mainView loadHTML:text];
-                                                     }
-                                                     
-                                                 }];
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                    NSLog(@"Response:%@ %@\n", response, error);
+                                                    
+                                                    if(error == nil)
+                                                    {
+                                                        NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                                                        NSLog(@"Data = %@",text);
+                                                        [mainView loadHTML:text];
+                                                    }
+                                                    
+                                                }];
     [dataTask resume];
     
 }

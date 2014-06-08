@@ -23,6 +23,10 @@
 		EE30F29C193E3DD500A79F73 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F27E193E3DD500A79F73 /* UIKit.framework */; };
 		EE30F2A4193E3DD500A79F73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE30F2A2193E3DD500A79F73 /* InfoPlist.strings */; };
 		EE30F2A6193E3DD500A79F73 /* timbrumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE30F2A5193E3DD500A79F73 /* timbrumTests.m */; };
+		EE5121A61943077600E1D19D /* restart-512.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5121A51943077600E1D19D /* restart-512.png */; };
+		EE5121A81943088900E1D19D /* plus_1hour-512.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5121A71943088900E1D19D /* plus_1hour-512.png */; };
+		EE5121AA194309C500E1D19D /* plus_1hour-50.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5121A9194309C500E1D19D /* plus_1hour-50.png */; };
+		EE5121AC194309DE00E1D19D /* sinchronize-48.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5121AB194309DE00E1D19D /* sinchronize-48.png */; };
 		EE514C0E19410AB600A9EE42 /* ZucchettiConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = EE514C0D19410AB600A9EE42 /* ZucchettiConnector.m */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +62,10 @@
 		EE30F2A1193E3DD500A79F73 /* iTimbrumTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iTimbrumTests-Info.plist"; sourceTree = "<group>"; };
 		EE30F2A3193E3DD500A79F73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EE30F2A5193E3DD500A79F73 /* timbrumTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = timbrumTests.m; sourceTree = "<group>"; };
+		EE5121A51943077600E1D19D /* restart-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "restart-512.png"; sourceTree = "<group>"; };
+		EE5121A71943088900E1D19D /* plus_1hour-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_1hour-512.png"; sourceTree = "<group>"; };
+		EE5121A9194309C500E1D19D /* plus_1hour-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_1hour-50.png"; sourceTree = "<group>"; };
+		EE5121AB194309DE00E1D19D /* sinchronize-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sinchronize-48.png"; sourceTree = "<group>"; };
 		EE514C0C19410AB600A9EE42 /* ZucchettiConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZucchettiConnector.h; sourceTree = "<group>"; };
 		EE514C0D19410AB600A9EE42 /* ZucchettiConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZucchettiConnector.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,6 +144,10 @@
 		EE30F281193E3DD500A79F73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE5121AB194309DE00E1D19D /* sinchronize-48.png */,
+				EE5121A9194309C500E1D19D /* plus_1hour-50.png */,
+				EE5121A71943088900E1D19D /* plus_1hour-512.png */,
+				EE5121A51943077600E1D19D /* restart-512.png */,
 				EE30F282193E3DD500A79F73 /* iTimbrum-Info.plist */,
 				1BFBA2AA1941DFDA00B9F2D7 /* blurry.png */,
 				EE30F283193E3DD500A79F73 /* InfoPlist.strings */,
@@ -239,10 +251,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE5121AC194309DE00E1D19D /* sinchronize-48.png in Resources */,
+				EE5121AA194309C500E1D19D /* plus_1hour-50.png in Resources */,
+				EE5121A61943077600E1D19D /* restart-512.png in Resources */,
 				1B764F661940960A004825C8 /* Settings.bundle in Resources */,
 				EE30F293193E3DD500A79F73 /* Images.xcassets in Resources */,
 				EE30F285193E3DD500A79F73 /* InfoPlist.strings in Resources */,
 				1BFBA2AB1941DFDA00B9F2D7 /* blurry.png in Resources */,
+				EE5121A81943088900E1D19D /* plus_1hour-512.png in Resources */,
 				EE30F28E193E3DD500A79F73 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,9 +10,10 @@
 #import "ZucchettiConnector.h"
 #endif
 @class ZucchettiConnector;
-@interface ViewController : UIViewController<UITableViewDataSource>
+@interface ViewController : UIViewController<UITableViewDataSource>{
+}
 
-@property (nonatomic, retain) UITableView *tableView;
+@property (readwrite) NSTimer * timer;
 @property (readwrite) ZucchettiConnector *connecctor;
 
 -(void) loadHTML:(NSString *) data;
