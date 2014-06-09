@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "timbrum/ViewController.m"
-            timestampString = "423748660.960781"
+            timestampString = "424006655.669377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "-sliderAction:"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "-didReceiveMemoryWarning"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "timbrum/ViewController.m"
-            timestampString = "423761332.524167"
+            timestampString = "424018241.382287"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136">
+            startingLineNumber = "161"
+            endingLineNumber = "161">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -40,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "timbrum/ViewController.m"
-            timestampString = "423761332.524167"
+            timestampString = "424018241.382287"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
             landmarkName = "@implementation ViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -56,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "timbrum/ViewController.m"
-            timestampString = "423761332.524167"
+            timestampString = "424018241.382287"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139">
+            startingLineNumber = "164"
+            endingLineNumber = "164">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -70,28 +70,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "timbrum/ViewController.m"
-            timestampString = "423761332.524167"
+            timestampString = "424018241.382287"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "-loadNewDataList:"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "-loadHTML:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "timbrum/ViewController.m"
-            timestampString = "423761332.524167"
+            timestampString = "424018241.382287"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "-loadNewDataList:"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "-loadHTML:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -35,17 +35,20 @@
     
     _connecctor = [[ZucchettiConnector alloc] init];
     [_connecctor setMainView:self];
-}
-
-
-
--(void)enteredBackground:(NSNotification *)notification {
     _timer = [NSTimer scheduledTimerWithTimeInterval:2.0
                                               target:self
                                             selector:@selector(updatePranzoSlider:)
                                             userInfo:nil
                                              repeats:NO];
-    [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+}
+
+
+
+-(void)enteredBackground:(NSNotification *)notification {
+    NSLog(@"Avvio Timer");
+    
+    
 }
 
 -(void)becomeActive:(NSNotification *)notification {
@@ -71,7 +74,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    [_slider setContinuous: NO];
 }
 
 
@@ -98,8 +100,21 @@
     [_webView loadHTMLString:logs baseURL:nil];
 }
 
+- (void)calcola:(NSInteger *)hour_p minute_p:(NSInteger *)minute_p {
+    NSDate *today = [NSDate date];
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components =
+    [gregorian components:(NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:today];
+    
+    *hour_p = [components hour];
+    *minute_p = [components minute];
+}
+
 -(void) loadNewDataList:(NSArray*) array{
     NSMutableString *logs = [[NSMutableString alloc] initWithString:@"<html><head></head><body style='color:white;background-color: transparent;'><table border='0' align='center'>"];
+    NSInteger minTot = 0;
+    
     for (int i =0; i<[array count]-1; i++) {
         NSString *timbratura = [[array objectAtIndex:i] objectAtIndex:2] ;
         if ([timbratura isEqualToString:@"U"]) {
@@ -114,13 +129,31 @@
         [logs appendFormat:@"<td width='80%%'>%@</td>",data];
         
         NSString *ora = [[array objectAtIndex:i] objectAtIndex:1] ;
+        NSArray *oreMin = [ora componentsSeparatedByString: @":"];
+        if([timbratura isEqualToString:@"E"]){
+            minTot-=[oreMin[0] intValue]*60;
+            minTot-=[oreMin[1] intValue];
+        } else if([timbratura isEqualToString:@"U"]){
+            minTot+=[oreMin[0] intValue]*60;
+            minTot+=[oreMin[1] intValue];
+        }
         [logs appendFormat:@"<td width='30%%'>%@</td></tr>",ora];
     }
-    [logs appendString:@"</table></body></html>"];
+    
+    NSInteger hour;
+    NSInteger minute;
+    [self calcola:&hour minute_p:&minute];
+    minTot+=hour*60;
+    minTot+=minute;
+    [logs appendFormat:@"</table>Ore Tot: %d:%02d</body></html>",(int)minTot/60,(int)minTot%60];
     
     [_webView loadHTMLString:logs baseURL:nil];
     
 }
+- (IBAction)refreshAction:(id)sender {
+    [_connecctor loadAccessLog];
+}
+
 
 
 
