@@ -11,6 +11,7 @@
 @interface ViewController()
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UISlider *pranzoSlider;
 
 @end
 
@@ -28,10 +29,6 @@
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(enteredBackground:)
-                                                 name: UIApplicationDidEnterBackgroundNotification
-                                               object: nil];
     
     _connecctor = [[ZucchettiConnector alloc] init];
     [_connecctor setMainView:self];
@@ -43,13 +40,6 @@
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
 }
 
-
-
--(void)enteredBackground:(NSNotification *)notification {
-    NSLog(@"Avvio Timer");
-    
-    
-}
 
 -(void)becomeActive:(NSNotification *)notification {
     [self viewDidAppear:YES];
@@ -100,6 +90,21 @@
     [_webView loadHTMLString:logs baseURL:nil];
 }
 
+- (IBAction)pranzoAction:(id)sender {
+    if ([_pranzoSlider value] == [_pranzoSlider maximumValue] ){
+        NSLog(@"Exit Pranzo");
+        // [_connecctor timbra:@"U"];
+        [_connecctor loadAccessLog];
+        UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+        localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60];
+        localNotification.alertBody = @"E' ora di rientrare!";
+        localNotification.timeZone = [NSTimeZone defaultTimeZone];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        
+    }
+    [_pranzoSlider reloadInputViews];
+}
+
 - (void)calcola:(NSInteger *)hour_p minute_p:(NSInteger *)minute_p {
     NSDate *today = [NSDate date];
     NSCalendar *gregorian = [[NSCalendar alloc]
@@ -114,7 +119,7 @@
 -(void) loadNewDataList:(NSArray*) array{
     NSMutableString *logs = [[NSMutableString alloc] initWithString:@"<html><head></head><body style='color:white;background-color: transparent;'><table border='0' align='center'>"];
     NSInteger minTot = 0;
-    
+    BOOL isLastAnEnter= false;
     for (int i =0; i<[array count]-1; i++) {
         NSString *timbratura = [[array objectAtIndex:i] objectAtIndex:2] ;
         if ([timbratura isEqualToString:@"U"]) {
@@ -133,18 +138,21 @@
         if([timbratura isEqualToString:@"E"]){
             minTot-=[oreMin[0] intValue]*60;
             minTot-=[oreMin[1] intValue];
+            isLastAnEnter= true;
         } else if([timbratura isEqualToString:@"U"]){
             minTot+=[oreMin[0] intValue]*60;
             minTot+=[oreMin[1] intValue];
+            isLastAnEnter = false;
         }
         [logs appendFormat:@"<td width='30%%'>%@</td></tr>",ora];
     }
-    
-    NSInteger hour;
-    NSInteger minute;
-    [self calcola:&hour minute_p:&minute];
-    minTot+=hour*60;
-    minTot+=minute;
+    if(isLastAnEnter){
+        NSInteger hour;
+        NSInteger minute;
+        [self calcola:&hour minute_p:&minute];
+        minTot+=hour*60;
+        minTot+=minute;
+    }
     [logs appendFormat:@"</table>Ore Tot: %d:%02d</body></html>",(int)minTot/60,(int)minTot%60];
     
     [_webView loadHTMLString:logs baseURL:nil];

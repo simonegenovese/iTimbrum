@@ -10,7 +10,7 @@
 #import "ZucchettiConnector.h"
 #endif
 @class ZucchettiConnector;
-@interface ViewController : UIViewController<UITableViewDataSource>{
+@interface ViewController : UIViewController{
 }
 
 @property (readwrite) NSTimer * timer;

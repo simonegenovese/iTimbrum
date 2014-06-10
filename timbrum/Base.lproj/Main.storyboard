@@ -56,6 +56,10 @@
                                 <color key="minimumTrackTintColor" red="0.33808169157608692" green="0.33808169157608692" blue="0.33808169157608692" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="maximumTrackTintColor" red="0.55207622050000005" green="0.1144524366" blue="0.17689730640000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" red="0.55207622050000005" green="0.1144524366" blue="0.17689730640000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="pranzoAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hrW-QF-qkk"/>
+                                    <action selector="pranzoAction:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="waB-Ek-CLk"/>
+                                </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pranzo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epc-hG-JjY">
                                 <rect key="frame" x="129" y="336" width="54" height="21"/>
@@ -89,13 +93,15 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="plus_1hour-50.png" translatesAutoresizingMaskIntoConstraints="NO" id="QOQ-AV-vx4">
-                                <rect key="frame" x="266" y="361" width="38" height="38"/>
+                                <rect key="frame" x="252" y="403" width="38" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="hkU-cx-PYp"/>
                     <connections>
+                        <outlet property="pranzoSlider" destination="AWb-CF-PQt" id="QAc-iX-sRX"/>
                         <outlet property="slider" destination="wqz-dM-L49" id="KtQ-ZU-jN0"/>
                         <outlet property="webView" destination="QKF-pM-2mZ" id="15o-FI-OT2"/>
                     </connections>
