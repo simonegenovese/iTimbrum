@@ -52,7 +52,7 @@
         NSCalendar *gregorian = [[NSCalendar alloc]
                                  initWithCalendarIdentifier:NSGregorianCalendar];
         
-        NSUInteger unitFlags = NSMonthCalendarUnit | NSDayCalendarUnit;
+        NSUInteger unitFlags = NSMinuteCalendarUnit;
         
         NSDateComponents *components = [gregorian components:unitFlags
                                                     fromDate:_dataUscitaPranzo
