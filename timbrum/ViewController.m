@@ -12,6 +12,8 @@
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UISlider *pranzoSlider;
+@property (weak, nonatomic) IBOutlet UILabel *hoursLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hoursRes;
 
 @end
 
@@ -35,35 +37,22 @@
 
 
 -(void)becomeActive:(NSNotification *)notification {
-    // Set icon badge number to zero
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     [self viewDidAppear:YES];
 }
 
--(void)updatePranzoSlider:(NSNotification *)notification{
-    NSLog(@"Scalo 60 secondi");
-}
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (_dataUscitaPranzo!=nil) {
-        NSDate * now = [[NSDate alloc] init];
-        NSCalendar *gregorian = [[NSCalendar alloc]
-                                 initWithCalendarIdentifier:NSGregorianCalendar];
-        
-        NSUInteger unitFlags = NSMinuteCalendarUnit;
-        
-        NSDateComponents *components = [gregorian components:unitFlags
-                                                    fromDate:_dataUscitaPranzo
-                                                      toDate:now options:0];
-        NSNumber *minutes =  [NSNumber numberWithInt:[components minute]];
-        [_pranzoSlider setValue:[_pranzoSlider maximumValue]-[minutes floatValue] animated:true];
-    }
     NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSString * password = [standardUserDefaults objectForKey:@"pass_preference"];
     NSString * username = [standardUserDefaults objectForKey:@"name_preference"];
+    _durataPranzo = [standardUserDefaults objectForKey:@"pranzo_preference"];
+
     [_connecctor sendLoginRequest:username password:password];
+    [self updatePranzoSlider:nil];
 }
 
 
@@ -103,12 +92,18 @@
         [_connecctor loadAccessLog];
         _dataUscitaPranzo = [[NSDate alloc] init];
         UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-        localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60];
+        localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:[_durataPranzo integerValue]];
         localNotification.alertBody = @"E' ora di rientrare!";
         localNotification.applicationIconBadgeNumber++;
         localNotification.timeZone = [NSTimeZone defaultTimeZone];
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-        
+        _timer = [NSTimer scheduledTimerWithTimeInterval: 60.0
+                                                  target: self
+                                                selector:@selector(updatePranzoSlider:)
+                                                userInfo: nil repeats:YES];
+        [_pranzoSlider setEnabled:false];
+    } else {
+        [_pranzoSlider setValue:[_pranzoSlider minimumValue]];
     }
     [_pranzoSlider reloadInputViews];
 }
@@ -161,8 +156,9 @@
         minTot+=hour*60;
         minTot+=minute;
     }
-    [logs appendFormat:@"</table>Ore Tot: %d:%02d</body></html>",(int)minTot/60,(int)minTot%60];
-    
+    [logs appendString:@"</table></body></html>"];
+    [_hoursLabel setText:[[NSString alloc]initWithFormat:@"%d:%02d",(int)minTot/60,(int)minTot%60]];
+        [_hoursRes setText:[[NSString alloc]initWithFormat:@"%d:%02d",(int)(480-minTot)/60,(int)(480-minTot)%60]];
     [_webView loadHTMLString:logs baseURL:nil];
     
 }
@@ -170,6 +166,28 @@
     [_connecctor loadAccessLog];
 }
 
+-(void)updatePranzoSlider:(NSTimer *)timer{
+    if (_dataUscitaPranzo!=nil) {
+        NSDate * now = [[NSDate alloc] init];
+        NSCalendar *gregorian = [[NSCalendar alloc]
+                                 initWithCalendarIdentifier:NSGregorianCalendar];
+        
+        NSUInteger unitFlags = NSMinuteCalendarUnit;
+        
+        NSDateComponents *components = [gregorian components:unitFlags
+                                                    fromDate:_dataUscitaPranzo
+                                                      toDate:now options:0];
+        NSNumber *minutes =  [NSNumber numberWithInt:[components minute]];
+        [_pranzoSlider setValue:[_pranzoSlider maximumValue]-[minutes floatValue] animated:true];
+        if ([_pranzoSlider value]==[_pranzoSlider minimumValue]) {
+            [_timer invalidate];
+            [_pranzoSlider setEnabled:TRUE];
+            // [_connecctor timbra:@"E"];
+            
+        }
+    }
+    
+}
 
 
 

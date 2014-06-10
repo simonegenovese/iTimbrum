@@ -15,6 +15,8 @@
 
 @property (readwrite) NSDate * dataUscitaPranzo;
 @property (readwrite) ZucchettiConnector *connecctor;
+@property (readwrite) NSTimer *timer;
+@property (retain) NSString * durataPranzo;
 
 -(void) loadHTML:(NSString *) data;
 

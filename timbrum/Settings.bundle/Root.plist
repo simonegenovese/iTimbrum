@@ -36,7 +36,7 @@
 			<key>DefaultValue</key>
 			<string></string>
 			<key>IsSecure</key>
-			<false/>
+			<true/>
 			<key>Key</key>
 			<string>pass_preference</string>
 			<key>KeyboardType</key>
@@ -47,14 +47,22 @@
 			<string>PSTextFieldSpecifier</string>
 		</dict>
 		<dict>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
 			<key>DefaultValue</key>
-			<true/>
+			<string></string>
+			<key>IsSecure</key>
+			<false/>
 			<key>Key</key>
-			<string>enabled_preference</string>
+			<string>pranzo_preference</string>
+			<key>KeyboardType</key>
+			<string>Alphabet</string>
 			<key>Title</key>
-			<string>Login Automatico</string>
+			<string>Durata pranzo</string>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>PSTextFieldSpecifier</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>
