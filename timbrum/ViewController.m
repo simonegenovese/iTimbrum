@@ -18,8 +18,7 @@
 @implementation ViewController
 
 @synthesize connecctor = _connecctor;
-@synthesize timer = _timer;
-
+@synthesize dataUscitaPranzo = _dataUscitaPranzo;
 
 - (void)viewDidLoad
 {
@@ -32,16 +31,12 @@
     
     _connecctor = [[ZucchettiConnector alloc] init];
     [_connecctor setMainView:self];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:2.0
-                                              target:self
-                                            selector:@selector(updatePranzoSlider:)
-                                            userInfo:nil
-                                             repeats:NO];
-    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
 }
 
 
 -(void)becomeActive:(NSNotification *)notification {
+    // Set icon badge number to zero
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     [self viewDidAppear:YES];
 }
 
@@ -51,9 +46,20 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [_timer invalidate];
-    _timer = nil;
     [super viewDidAppear:animated];
+    if (_dataUscitaPranzo!=nil) {
+        NSDate * now = [[NSDate alloc] init];
+        NSCalendar *gregorian = [[NSCalendar alloc]
+                                 initWithCalendarIdentifier:NSGregorianCalendar];
+        
+        NSUInteger unitFlags = NSMonthCalendarUnit | NSDayCalendarUnit;
+        
+        NSDateComponents *components = [gregorian components:unitFlags
+                                                    fromDate:_dataUscitaPranzo
+                                                      toDate:now options:0];
+        NSNumber *minutes =  [NSNumber numberWithInt:[components minute]];
+        [_pranzoSlider setValue:[_pranzoSlider maximumValue]-[minutes floatValue] animated:true];
+    }
     NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSString * password = [standardUserDefaults objectForKey:@"pass_preference"];
     NSString * username = [standardUserDefaults objectForKey:@"name_preference"];
@@ -95,9 +101,11 @@
         NSLog(@"Exit Pranzo");
         // [_connecctor timbra:@"U"];
         [_connecctor loadAccessLog];
+        _dataUscitaPranzo = [[NSDate alloc] init];
         UILocalNotification* localNotification = [[UILocalNotification alloc] init];
         localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60];
         localNotification.alertBody = @"E' ora di rientrare!";
+        localNotification.applicationIconBadgeNumber++;
         localNotification.timeZone = [NSTimeZone defaultTimeZone];
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         

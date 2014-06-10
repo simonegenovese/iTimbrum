@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1B764F661940960A004825C8 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1B764F651940960A004825C8 /* Settings.bundle */; };
+		1B8AFD101947365200549331 /* g.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B8AFD0F1947365200549331 /* g.png */; };
+		1B8AFD12194736F500549331 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1B8AFD11194736F500549331 /* icon.icns */; };
 		1BFBA2AB1941DFDA00B9F2D7 /* blurry.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBA2AA1941DFDA00B9F2D7 /* blurry.png */; };
 		EE30F27B193E3DD500A79F73 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F27A193E3DD500A79F73 /* Foundation.framework */; };
 		EE30F27D193E3DD500A79F73 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F27C193E3DD500A79F73 /* CoreGraphics.framework */; };
@@ -42,6 +44,8 @@
 
 /* Begin PBXFileReference section */
 		1B764F651940960A004825C8 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		1B8AFD0F1947365200549331 /* g.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = g.png; sourceTree = "<group>"; };
+		1B8AFD11194736F500549331 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		1BFBA2AA1941DFDA00B9F2D7 /* blurry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blurry.png; sourceTree = "<group>"; };
 		EE30F277193E3DD500A79F73 /* iTimbrum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTimbrum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE30F27A193E3DD500A79F73 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -144,6 +148,8 @@
 		EE30F281193E3DD500A79F73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1B8AFD11194736F500549331 /* icon.icns */,
+				1B8AFD0F1947365200549331 /* g.png */,
 				EE5121AB194309DE00E1D19D /* sinchronize-48.png */,
 				EE5121A9194309C500E1D19D /* plus_1hour-50.png */,
 				EE5121A71943088900E1D19D /* plus_1hour-512.png */,
@@ -222,6 +228,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = SimoneGenovese;
 				TargetAttributes = {
+					EE30F276193E3DD500A79F73 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
+					};
 					EE30F297193E3DD500A79F73 = {
 						TestTargetID = EE30F276193E3DD500A79F73;
 					};
@@ -252,6 +265,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE5121AC194309DE00E1D19D /* sinchronize-48.png in Resources */,
+				1B8AFD101947365200549331 /* g.png in Resources */,
+				1B8AFD12194736F500549331 /* icon.icns in Resources */,
 				EE5121AA194309C500E1D19D /* plus_1hour-50.png in Resources */,
 				EE5121A61943077600E1D19D /* restart-512.png in Resources */,
 				1B764F661940960A004825C8 /* Settings.bundle in Resources */,

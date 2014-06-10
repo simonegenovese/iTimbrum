@@ -13,7 +13,7 @@
 @interface ViewController : UIViewController{
 }
 
-@property (readwrite) NSTimer * timer;
+@property (readwrite) NSDate * dataUscitaPranzo;
 @property (readwrite) ZucchettiConnector *connecctor;
 
 -(void) loadHTML:(NSString *) data;
