@@ -11,6 +11,7 @@
 		1B8AFD101947365200549331 /* g.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B8AFD0F1947365200549331 /* g.png */; };
 		1B8AFD12194736F500549331 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1B8AFD11194736F500549331 /* icon.icns */; };
 		1BFBA2AB1941DFDA00B9F2D7 /* blurry.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBA2AA1941DFDA00B9F2D7 /* blurry.png */; };
+		EE0F7DB7194819CC001CA6FC /* backgrownd.png in Resources */ = {isa = PBXBuildFile; fileRef = EE0F7DB6194819CC001CA6FC /* backgrownd.png */; };
 		EE30F27B193E3DD500A79F73 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F27A193E3DD500A79F73 /* Foundation.framework */; };
 		EE30F27D193E3DD500A79F73 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F27C193E3DD500A79F73 /* CoreGraphics.framework */; };
 		EE30F27F193E3DD500A79F73 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE30F27E193E3DD500A79F73 /* UIKit.framework */; };
@@ -30,6 +31,15 @@
 		EE5121AA194309C500E1D19D /* plus_1hour-50.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5121A9194309C500E1D19D /* plus_1hour-50.png */; };
 		EE5121AC194309DE00E1D19D /* sinchronize-48.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5121AB194309DE00E1D19D /* sinchronize-48.png */; };
 		EE514C0E19410AB600A9EE42 /* ZucchettiConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = EE514C0D19410AB600A9EE42 /* ZucchettiConnector.m */; };
+		EEB4389E19481ED4007E4626 /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = EEB4389D19481ED4007E4626 /* clock.png */; };
+		EEB438AC1948209C007E4626 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438AB1948209C007E4626 /* libGoogleAdMobAds.a */; };
+		EEB438AF194820F7007E4626 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438AE194820F7007E4626 /* AdSupport.framework */; };
+		EEB438B619482136007E4626 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B019482136007E4626 /* AudioToolbox.framework */; };
+		EEB438B719482136007E4626 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B119482136007E4626 /* AVFoundation.framework */; };
+		EEB438B819482136007E4626 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B219482136007E4626 /* CoreTelephony.framework */; };
+		EEB438B919482136007E4626 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B319482136007E4626 /* MessageUI.framework */; };
+		EEB438BA19482136007E4626 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B419482136007E4626 /* StoreKit.framework */; };
+		EEB438BB19482136007E4626 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B519482136007E4626 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +57,7 @@
 		1B8AFD0F1947365200549331 /* g.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = g.png; sourceTree = "<group>"; };
 		1B8AFD11194736F500549331 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		1BFBA2AA1941DFDA00B9F2D7 /* blurry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blurry.png; sourceTree = "<group>"; };
+		EE0F7DB6194819CC001CA6FC /* backgrownd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgrownd.png; sourceTree = "<group>"; };
 		EE30F277193E3DD500A79F73 /* iTimbrum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTimbrum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE30F27A193E3DD500A79F73 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EE30F27C193E3DD500A79F73 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -72,6 +83,27 @@
 		EE5121AB194309DE00E1D19D /* sinchronize-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sinchronize-48.png"; sourceTree = "<group>"; };
 		EE514C0C19410AB600A9EE42 /* ZucchettiConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZucchettiConnector.h; sourceTree = "<group>"; };
 		EE514C0D19410AB600A9EE42 /* ZucchettiConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZucchettiConnector.m; sourceTree = "<group>"; };
+		EEB4389D19481ED4007E4626 /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
+		EEB4389F1948209C007E4626 /* GADInAppPurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInAppPurchase.h; sourceTree = "<group>"; };
+		EEB438A01948209C007E4626 /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
+		EEB438A11948209C007E4626 /* GADAdNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdNetworkExtras.h; sourceTree = "<group>"; };
+		EEB438A21948209C007E4626 /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
+		EEB438A31948209C007E4626 /* GADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerView.h; sourceTree = "<group>"; };
+		EEB438A41948209C007E4626 /* GADBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerViewDelegate.h; sourceTree = "<group>"; };
+		EEB438A51948209C007E4626 /* GADInAppPurchaseDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInAppPurchaseDelegate.h; sourceTree = "<group>"; };
+		EEB438A61948209C007E4626 /* GADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitial.h; sourceTree = "<group>"; };
+		EEB438A71948209C007E4626 /* GADInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitialDelegate.h; sourceTree = "<group>"; };
+		EEB438A81948209C007E4626 /* GADModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADModules.h; sourceTree = "<group>"; };
+		EEB438A91948209C007E4626 /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
+		EEB438AA1948209C007E4626 /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
+		EEB438AB1948209C007E4626 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
+		EEB438AE194820F7007E4626 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		EEB438B019482136007E4626 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		EEB438B119482136007E4626 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		EEB438B219482136007E4626 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		EEB438B319482136007E4626 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		EEB438B419482136007E4626 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		EEB438B519482136007E4626 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +111,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEB438B619482136007E4626 /* AudioToolbox.framework in Frameworks */,
+				EEB438B719482136007E4626 /* AVFoundation.framework in Frameworks */,
+				EEB438B819482136007E4626 /* CoreTelephony.framework in Frameworks */,
+				EEB438B919482136007E4626 /* MessageUI.framework in Frameworks */,
+				EEB438BA19482136007E4626 /* StoreKit.framework in Frameworks */,
+				EEB438BB19482136007E4626 /* SystemConfiguration.framework in Frameworks */,
 				EE30F27D193E3DD500A79F73 /* CoreGraphics.framework in Frameworks */,
+				EEB438AF194820F7007E4626 /* AdSupport.framework in Frameworks */,
+				EEB438AC1948209C007E4626 /* libGoogleAdMobAds.a in Frameworks */,
 				EE30F27F193E3DD500A79F73 /* UIKit.framework in Frameworks */,
 				EE30F27B193E3DD500A79F73 /* Foundation.framework in Frameworks */,
 			);
@@ -101,6 +141,7 @@
 		EE30F26E193E3DD500A79F73 = {
 			isa = PBXGroup;
 			children = (
+				EEB438AD194820B9007E4626 /* Banner */,
 				EE30F280193E3DD500A79F73 /* timbrum */,
 				EE30F29F193E3DD500A79F73 /* timbrumTests */,
 				EE30F279193E3DD500A79F73 /* Frameworks */,
@@ -120,6 +161,13 @@
 		EE30F279193E3DD500A79F73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EEB438B019482136007E4626 /* AudioToolbox.framework */,
+				EEB438B119482136007E4626 /* AVFoundation.framework */,
+				EEB438B219482136007E4626 /* CoreTelephony.framework */,
+				EEB438B319482136007E4626 /* MessageUI.framework */,
+				EEB438B419482136007E4626 /* StoreKit.framework */,
+				EEB438B519482136007E4626 /* SystemConfiguration.framework */,
+				EEB438AE194820F7007E4626 /* AdSupport.framework */,
 				EE30F27A193E3DD500A79F73 /* Foundation.framework */,
 				EE30F27C193E3DD500A79F73 /* CoreGraphics.framework */,
 				EE30F27E193E3DD500A79F73 /* UIKit.framework */,
@@ -148,6 +196,8 @@
 		EE30F281193E3DD500A79F73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EEB4389D19481ED4007E4626 /* clock.png */,
+				EE0F7DB6194819CC001CA6FC /* backgrownd.png */,
 				1B8AFD11194736F500549331 /* icon.icns */,
 				1B8AFD0F1947365200549331 /* g.png */,
 				EE5121AB194309DE00E1D19D /* sinchronize-48.png */,
@@ -179,6 +229,26 @@
 				EE30F2A2193E3DD500A79F73 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EEB438AD194820B9007E4626 /* Banner */ = {
+			isa = PBXGroup;
+			children = (
+				EEB4389F1948209C007E4626 /* GADInAppPurchase.h */,
+				EEB438A01948209C007E4626 /* GADAdMobExtras.h */,
+				EEB438A11948209C007E4626 /* GADAdNetworkExtras.h */,
+				EEB438A21948209C007E4626 /* GADAdSize.h */,
+				EEB438A31948209C007E4626 /* GADBannerView.h */,
+				EEB438A41948209C007E4626 /* GADBannerViewDelegate.h */,
+				EEB438A51948209C007E4626 /* GADInAppPurchaseDelegate.h */,
+				EEB438A61948209C007E4626 /* GADInterstitial.h */,
+				EEB438A71948209C007E4626 /* GADInterstitialDelegate.h */,
+				EEB438A81948209C007E4626 /* GADModules.h */,
+				EEB438A91948209C007E4626 /* GADRequest.h */,
+				EEB438AA1948209C007E4626 /* GADRequestError.h */,
+				EEB438AB1948209C007E4626 /* libGoogleAdMobAds.a */,
+			);
+			name = Banner;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,10 +341,12 @@
 				EE5121A61943077600E1D19D /* restart-512.png in Resources */,
 				1B764F661940960A004825C8 /* Settings.bundle in Resources */,
 				EE30F293193E3DD500A79F73 /* Images.xcassets in Resources */,
+				EE0F7DB7194819CC001CA6FC /* backgrownd.png in Resources */,
 				EE30F285193E3DD500A79F73 /* InfoPlist.strings in Resources */,
 				1BFBA2AB1941DFDA00B9F2D7 /* blurry.png in Resources */,
 				EE5121A81943088900E1D19D /* plus_1hour-512.png in Resources */,
 				EE30F28E193E3DD500A79F73 /* Main.storyboard in Resources */,
+				EEB4389E19481ED4007E4626 /* clock.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +496,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "timbrum/iTimbrum-Prefix.pch";
 				INFOPLIST_FILE = "timbrum/iTimbrum-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iTimbrum;
 				WRAPPER_EXTENSION = app;
 			};
@@ -437,6 +514,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "timbrum/iTimbrum-Prefix.pch";
 				INFOPLIST_FILE = "timbrum/iTimbrum-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = iTimbrum;
 				WRAPPER_EXTENSION = app;
 			};

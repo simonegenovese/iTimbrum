@@ -8,9 +8,13 @@
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 #import "ZucchettiConnector.h"
+// Import GADBannerView's definition from the SDK
+#import "GADBannerView.h"
+
 #endif
 @class ZucchettiConnector;
 @interface ViewController : UIViewController{
+    GADBannerView *bannerView_;
 }
 
 @property (readwrite) NSDate * dataUscitaPranzo;

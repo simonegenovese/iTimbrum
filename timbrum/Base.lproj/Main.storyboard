@@ -16,12 +16,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blurry.png" translatesAutoresizingMaskIntoConstraints="NO" id="UBg-Ig-YiR">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="backgrownd.png" translatesAutoresizingMaskIntoConstraints="NO" id="UBg-Ig-YiR">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r3k-wO-b0m">
+                                <rect key="frame" x="9" y="71" width="77" height="162"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.51049997474701159" blue="0.0" alpha="0.13" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LNQ-av-Gp2">
+                                <rect key="frame" x="9" y="241" width="291" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.39215689897537231" green="0.4901961088180542" blue="0.13725490868091583" alpha="0.28999999999999998" colorSpace="deviceRGB"/>
+                            </imageView>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqz-dM-L49">
-                                <rect key="frame" x="97" y="269" width="205" height="31"/>
+                                <rect key="frame" x="97" y="269" width="186" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -31,7 +41,7 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Uscita" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3s-W8-3y1">
-                                <rect key="frame" x="251" y="256" width="49" height="21"/>
+                                <rect key="frame" x="232" y="256" width="49" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -50,7 +60,7 @@
                                 <color key="backgroundColor" red="0.11117930501013421" green="0.45057100745384759" blue="0.69017059948979598" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
                             </webView>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="60" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWb-CF-PQt">
-                                <rect key="frame" x="97" y="315" width="205" height="31"/>
+                                <rect key="frame" x="97" y="315" width="186" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="minimumTrackTintColor" red="0.33808169157608692" green="0.33808169157608692" blue="0.33808169157608692" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="maximumTrackTintColor" red="0.55207622050000005" green="0.1144524366" blue="0.17689730640000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -119,6 +129,10 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="clock.png" translatesAutoresizingMaskIntoConstraints="NO" id="TOS-Mj-DWt">
+                                <rect key="frame" x="27" y="23" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -138,7 +152,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="blurry.png" width="640" height="1136"/>
+        <image name="backgrownd.png" width="640" height="1136"/>
+        <image name="clock.png" width="93" height="93"/>
         <image name="sinchronize-48.png" width="48" height="48"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

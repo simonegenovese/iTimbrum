@@ -33,6 +33,23 @@
     
     _connecctor = [[ZucchettiConnector alloc] init];
     [_connecctor setMainView:self];
+    
+    // Create a view of the standard size at the top of the screen.
+    // Available AdSize constants are explained in GADAdSize.h.
+    bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+    
+    // Specify the ad unit ID.
+    bannerView_.adUnitID = @"ca-app-pub-4203217046813060/5414483033";
+    
+    // Let the runtime know which UIViewController to restore after taking
+    // the user wherever the ad goes and add it to the view hierarchy.
+    bannerView_.rootViewController = self;
+    bannerView_.center = CGPointMake(self.view.center.x,
+                                self.view.center.y + 150);
+    [self.view addSubview:bannerView_];
+    
+    // Initiate a generic request to load it with an ad.
+    [bannerView_ loadRequest:[GADRequest request]];
 }
 
 
@@ -65,11 +82,11 @@
 - (IBAction)sliderAction:(id)sender {
     if ([_slider value] == [_slider minimumValue] && ![_slider isHighlighted] ) {
         NSLog(@"Enter");
-        // [_connecctor timbra:@"E"];
+        [_connecctor timbra:@"E"];
         [_connecctor loadAccessLog];
     } else if ([_slider value] == [_slider maximumValue] ){
         NSLog(@"Exit");
-        // [_connecctor timbra:@"U"];
+        [_connecctor timbra:@"U"];
         [_connecctor loadAccessLog];
     }
     [_slider setValue:([_slider maximumValue]-[_slider minimumValue])/2 animated:true];
