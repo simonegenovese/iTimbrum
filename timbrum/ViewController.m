@@ -109,7 +109,7 @@
         [_connecctor loadAccessLog];
         _dataUscitaPranzo = [[NSDate alloc] init];
         UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-        localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:[_durataPranzo integerValue]];
+        localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:[_durataPranzo integerValue]*60];
         localNotification.alertBody = @"E' ora di rientrare!";
         localNotification.applicationIconBadgeNumber++;
         localNotification.timeZone = [NSTimeZone defaultTimeZone];
