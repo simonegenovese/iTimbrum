@@ -67,7 +67,7 @@
     NSString * password = [standardUserDefaults objectForKey:@"pass_preference"];
     NSString * username = [standardUserDefaults objectForKey:@"name_preference"];
     _durataPranzo = [standardUserDefaults objectForKey:@"pranzo_preference"];
-
+    [_pranzoSlider setMaximumValue:[_durataPranzo floatValue]];
     [_connecctor sendLoginRequest:username password:password];
     [self updatePranzoSlider:nil];
 }
