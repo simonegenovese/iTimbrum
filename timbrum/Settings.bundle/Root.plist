@@ -64,6 +64,24 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 		</dict>
+		<dict>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>IsSecure</key>
+			<false/>
+			<key>Key</key>
+			<string>zucchetti_preference</string>
+			<key>KeyboardType</key>
+			<string>URL</string>
+			<key>Title</key>
+			<string>Server</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>

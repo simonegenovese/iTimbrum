@@ -31,6 +31,7 @@
 		EE5121AA194309C500E1D19D /* plus_1hour-50.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5121A9194309C500E1D19D /* plus_1hour-50.png */; };
 		EE5121AC194309DE00E1D19D /* sinchronize-48.png in Resources */ = {isa = PBXBuildFile; fileRef = EE5121AB194309DE00E1D19D /* sinchronize-48.png */; };
 		EE514C0E19410AB600A9EE42 /* ZucchettiConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = EE514C0D19410AB600A9EE42 /* ZucchettiConnector.m */; };
+		EE94CD2B1948EEC200D976E2 /* settings_filled-25.png in Resources */ = {isa = PBXBuildFile; fileRef = EE94CD2A1948EEC200D976E2 /* settings_filled-25.png */; };
 		EEB4389E19481ED4007E4626 /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = EEB4389D19481ED4007E4626 /* clock.png */; };
 		EEB438AC1948209C007E4626 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438AB1948209C007E4626 /* libGoogleAdMobAds.a */; };
 		EEB438AF194820F7007E4626 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438AE194820F7007E4626 /* AdSupport.framework */; };
@@ -83,6 +84,7 @@
 		EE5121AB194309DE00E1D19D /* sinchronize-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sinchronize-48.png"; sourceTree = "<group>"; };
 		EE514C0C19410AB600A9EE42 /* ZucchettiConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZucchettiConnector.h; sourceTree = "<group>"; };
 		EE514C0D19410AB600A9EE42 /* ZucchettiConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZucchettiConnector.m; sourceTree = "<group>"; };
+		EE94CD2A1948EEC200D976E2 /* settings_filled-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings_filled-25.png"; sourceTree = "<group>"; };
 		EEB4389D19481ED4007E4626 /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
 		EEB4389F1948209C007E4626 /* GADInAppPurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInAppPurchase.h; sourceTree = "<group>"; };
 		EEB438A01948209C007E4626 /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 		EE30F281193E3DD500A79F73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EE94CD2A1948EEC200D976E2 /* settings_filled-25.png */,
 				EEB4389D19481ED4007E4626 /* clock.png */,
 				EE0F7DB6194819CC001CA6FC /* backgrownd.png */,
 				1B8AFD11194736F500549331 /* icon.icns */,
@@ -336,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE5121AC194309DE00E1D19D /* sinchronize-48.png in Resources */,
+				EE94CD2B1948EEC200D976E2 /* settings_filled-25.png in Resources */,
 				1B8AFD101947365200549331 /* g.png in Resources */,
 				1B8AFD12194736F500549331 /* icon.icns in Resources */,
 				EE5121AA194309C500E1D19D /* plus_1hour-50.png in Resources */,

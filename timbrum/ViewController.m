@@ -45,7 +45,7 @@
     // the user wherever the ad goes and add it to the view hierarchy.
     bannerView_.rootViewController = self;
     bannerView_.center = CGPointMake(self.view.center.x,
-                                self.view.center.y + 150);
+                                     self.view.center.y + 150);
     [self.view addSubview:bannerView_];
     
     // Initiate a generic request to load it with an ad.
@@ -58,18 +58,28 @@
     [self viewDidAppear:YES];
 }
 
-
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSString * password = [standardUserDefaults objectForKey:@"pass_preference"];
     NSString * username = [standardUserDefaults objectForKey:@"name_preference"];
+    NSString * zucchettiUrl = [standardUserDefaults objectForKey:@"zucchetti_preference"];
     _durataPranzo = [standardUserDefaults objectForKey:@"pranzo_preference"];
-    [_pranzoSlider setMaximumValue:[_durataPranzo floatValue]];
-    [_connecctor sendLoginRequest:username password:password];
-    [self updatePranzoSlider:nil];
+    
+    if ([password isEqualToString:@""]) {
+        [self loadHTML:@"Password vuota"];
+    } else if ([username isEqualToString:@""]){
+        [self loadHTML:@"User vuota"];
+    } else if ([zucchettiUrl isEqualToString:@""]) {
+        [self loadHTML:@"Indirizzo vuoto"];
+    } else if ([_durataPranzo isEqualToString:@""]){
+        [self loadHTML:@"Durata pranzo non configurata"];
+    }else {
+        [_pranzoSlider setMaximumValue:[_durataPranzo floatValue]];
+        [_connecctor sendLoginRequest:username password:password url:zucchettiUrl];
+        [self updatePranzoSlider:nil];
+    }
 }
 
 
@@ -82,11 +92,13 @@
 - (IBAction)sliderAction:(id)sender {
     if ([_slider value] == [_slider minimumValue] && ![_slider isHighlighted] ) {
         NSLog(@"Enter");
-        [_connecctor timbra:@"E"];
+        [_slider setEnabled:false];
+        // [_connecctor timbra:@"E"];
         [_connecctor loadAccessLog];
     } else if ([_slider value] == [_slider maximumValue] ){
         NSLog(@"Exit");
-        [_connecctor timbra:@"U"];
+        [_slider setEnabled:false];
+        //[_connecctor timbra:@"U"];
         [_connecctor loadAccessLog];
     }
     [_slider setValue:([_slider maximumValue]-[_slider minimumValue])/2 animated:true];
@@ -103,7 +115,7 @@
 }
 
 - (IBAction)pranzoAction:(id)sender {
-    if ([_pranzoSlider value] == [_pranzoSlider maximumValue] ){
+    if ([_pranzoSlider value] >= [_pranzoSlider maximumValue] ){
         NSLog(@"Exit Pranzo");
         // [_connecctor timbra:@"U"];
         [_connecctor loadAccessLog];
@@ -120,8 +132,9 @@
                                                 userInfo: nil repeats:YES];
         [_pranzoSlider setEnabled:false];
     } else {
-        [_pranzoSlider setValue:[_pranzoSlider minimumValue]];
+        [_pranzoSlider setValue:[_pranzoSlider minimumValue] animated:TRUE];
     }
+    [_slider setValue:0.5 animated:true];
     [_pranzoSlider reloadInputViews];
 }
 
@@ -175,8 +188,10 @@
     }
     [logs appendString:@"</table></body></html>"];
     [_hoursLabel setText:[[NSString alloc]initWithFormat:@"%d:%02d",(int)minTot/60,(int)minTot%60]];
-        [_hoursRes setText:[[NSString alloc]initWithFormat:@"%d:%02d",(int)(480-minTot)/60,(int)(480-minTot)%60]];
+    [_hoursRes setText:[[NSString alloc]initWithFormat:@"%d:%02d",(int)(480-minTot)/60,(int)(480-minTot)%60]];
     [_webView loadHTMLString:logs baseURL:nil];
+    [_slider setEnabled:true];
+    
     
 }
 - (IBAction)refreshAction:(id)sender {
@@ -199,11 +214,16 @@
         if ([_pranzoSlider value]==[_pranzoSlider minimumValue]) {
             [_timer invalidate];
             [_pranzoSlider setEnabled:TRUE];
-            // [_connecctor timbra:@"E"];
-            
         }
     }
     
+}
+
+- (IBAction)pranzoSliding:(id)sender {
+    if([_pranzoSlider value]>=[_durataPranzo floatValue]/2){
+        float newPos = ([_pranzoSlider value]*0.5)/([_durataPranzo floatValue]/2) ;
+        [_slider setValue: newPos];
+    }
 }
 
 

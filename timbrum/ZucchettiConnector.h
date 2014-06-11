@@ -15,9 +15,11 @@
 @interface ZucchettiConnector : NSObject
 
 @property (readonly) NSURLSession *session;
+@property (readonly) NSString *url;
+
 @property (readwrite) ViewController *mainView;
 
-- (void)sendLoginRequest: (NSString*) username password: (NSString*) password;
+- (void)sendLoginRequest: (NSString*) username password: (NSString*) password url:(NSString*) zucchettiUrl;
 
 - (void) loadAccessLog;
 

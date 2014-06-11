@@ -59,7 +59,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.11117930501013421" green="0.45057100745384759" blue="0.69017059948979598" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
                             </webView>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="60" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWb-CF-PQt">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="AWb-CF-PQt">
                                 <rect key="frame" x="97" y="315" width="186" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="minimumTrackTintColor" red="0.33808169157608692" green="0.33808169157608692" blue="0.33808169157608692" alpha="1" colorSpace="calibratedRGB"/>
@@ -68,6 +68,7 @@
                                 <connections>
                                     <action selector="pranzoAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hrW-QF-qkk"/>
                                     <action selector="pranzoAction:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="waB-Ek-CLk"/>
+                                    <action selector="pranzoSliding:" destination="vXZ-lx-hvc" eventType="valueChanged" id="yHH-3g-tTh"/>
                                 </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pranzo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epc-hG-JjY">
@@ -85,7 +86,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="iTimbrum" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjE-w9-iWh">
-                                <rect key="frame" x="150" y="29" width="99" height="34"/>
+                                <rect key="frame" x="141" y="29" width="99" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="23"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
