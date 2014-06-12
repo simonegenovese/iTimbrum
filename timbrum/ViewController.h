@@ -15,6 +15,7 @@
 @class ZucchettiConnector;
 @interface ViewController : UIViewController{
     GADBannerView *bannerView_;
+    UILocalNotification* workFinishedNotif;
 }
 
 @property (readwrite) NSDate * dataUscitaPranzo;

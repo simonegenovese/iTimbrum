@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *hoursLabel;
 @property (weak, nonatomic) IBOutlet UILabel *hoursRes;
 
+
 @end
 
 @implementation ViewController
@@ -93,12 +94,12 @@
     if ([_slider value] == [_slider minimumValue] && ![_slider isHighlighted] ) {
         NSLog(@"Enter");
         [_slider setEnabled:false];
-        // [_connecctor timbra:@"E"];
+        [_connecctor timbra:@"E"];
         [_connecctor loadAccessLog];
     } else if ([_slider value] == [_slider maximumValue] ){
         NSLog(@"Exit");
         [_slider setEnabled:false];
-        //[_connecctor timbra:@"U"];
+        [_connecctor timbra:@"U"];
         [_connecctor loadAccessLog];
     }
     [_slider setValue:([_slider maximumValue]-[_slider minimumValue])/2 animated:true];
@@ -117,7 +118,7 @@
 - (IBAction)pranzoAction:(id)sender {
     if ([_pranzoSlider value] >= [_pranzoSlider maximumValue] ){
         NSLog(@"Exit Pranzo");
-        // [_connecctor timbra:@"U"];
+        [_connecctor timbra:@"U"];
         [_connecctor loadAccessLog];
         _dataUscitaPranzo = [[NSDate alloc] init];
         UILocalNotification* localNotification = [[UILocalNotification alloc] init];
@@ -147,6 +148,22 @@
     
     *hour_p = [components hour];
     *minute_p = [components minute];
+}
+
+- (void)setTimeAndRemaining:(NSInteger)minTot {
+    [_hoursLabel setText:[[NSString alloc]initWithFormat:@"%d:%02d",(int)minTot/60,(int)minTot%60]];
+    [_hoursRes setText:[[NSString alloc]initWithFormat:@"%d:%02d",(int)(480-minTot)/60,(int)(480-minTot)%60]];
+    if (minTot<480) {
+        if (workFinishedNotif!=nil) {
+            [[UIApplication sharedApplication]  cancelLocalNotification:workFinishedNotif];
+        }
+        workFinishedNotif = [[UILocalNotification alloc] init];
+        workFinishedNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:(480-minTot)*60];
+        workFinishedNotif.alertBody = @"Congratulazioni: hai lavorato 8 ore!";
+        workFinishedNotif.applicationIconBadgeNumber++;
+        workFinishedNotif.timeZone = [NSTimeZone defaultTimeZone];
+        [[UIApplication sharedApplication] scheduleLocalNotification:workFinishedNotif];
+    }
 }
 
 -(void) loadNewDataList:(NSArray*) array{
@@ -187,8 +204,7 @@
         minTot+=minute;
     }
     [logs appendString:@"</table></body></html>"];
-    [_hoursLabel setText:[[NSString alloc]initWithFormat:@"%d:%02d",(int)minTot/60,(int)minTot%60]];
-    [_hoursRes setText:[[NSString alloc]initWithFormat:@"%d:%02d",(int)(480-minTot)/60,(int)(480-minTot)%60]];
+    [self setTimeAndRemaining:minTot];
     [_webView loadHTMLString:logs baseURL:nil];
     [_slider setEnabled:true];
     
