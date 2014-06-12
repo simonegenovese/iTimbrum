@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#define radianConst M_PI/180.0
+#define EARTHRADIUS 6371
 
 @interface ViewController()
 @property (weak, nonatomic) IBOutlet UISlider *slider;
@@ -22,6 +24,10 @@
 
 @synthesize connecctor = _connecctor;
 @synthesize dataUscitaPranzo = _dataUscitaPranzo;
+@synthesize manager;
+@synthesize accuracy;
+@synthesize regionCourante;
+@synthesize centre;
 
 - (void)viewDidLoad
 {
@@ -51,6 +57,13 @@
     
     // Initiate a generic request to load it with an ad.
     [bannerView_ loadRequest:[GADRequest request]];
+    [self startStandardUpdates];
+    
+    
+    if ([CLLocationManager regionMonitoringAvailable]) {
+        [self startRegionMonitoring];
+        NSLog(@"Region monitoring available");
+    }
 }
 
 
@@ -80,6 +93,7 @@
         [_pranzoSlider setMaximumValue:[_durataPranzo floatValue]];
         [_connecctor sendLoginRequest:username password:password url:zucchettiUrl];
         [self updatePranzoSlider:nil];
+        [self startRegionMonitoring];
     }
 }
 
@@ -212,6 +226,11 @@
 }
 - (IBAction)refreshAction:(id)sender {
     [_connecctor loadAccessLog];
+//    [manager stopMonitoringForRegion:regionCourante];
+//    centre = CLLocationCoordinate2DMake(manager.location.coordinate.latitude, manager.location.coordinate.longitude);
+//    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter: centre radius: accuracy identifier: @"Region"];
+//    //    coordonneesCibles.text = [NSString stringWithFormat: @"Coord Cibles\nLatitude : %f\nLongitude : %f", centre.latitude, centre.longitude];
+//    [manager startMonitoringForRegion: regionCourante];
 }
 
 -(void)updatePranzoSlider:(NSTimer *)timer{
@@ -242,6 +261,173 @@
     }
 }
 
+- (void) locationManager:(CLLocationManager *)_manager
+     didUpdateToLocation:(CLLocation *)newLocation
+            fromLocation:(CLLocation *)oldLocation {
+    
+//    self.latitude.text = [NSString stringWithFormat:@"Latitude : %f", newLocation.coordinate.latitude] ;
+//    self.longitude.text = [NSString stringWithFormat:@"Longitude : %f", newLocation.coordinate.longitude] ;
+//    
+    NSLog(@"Latitude : %f, Longitude : %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+    
+    NSLog(@"Count: %i", _manager.monitoredRegions.count);
+    CLRegion *region;// = (CLRegion *) _manager.monitoredRegions.anyObject;
+    int i = 1;
+    for (region in _manager.monitoredRegions) {
+        NSLog(@"%i. Lat : %f, Long : %f, Radius: %f", i, region.center.latitude, region.center.longitude, region.radius);
+        i++;
+    }
+//    [self distanceEntre: centre et: newLocation];
+    
+//    distance.text = [NSString stringWithFormat:@"Distance: %.2fm", [self distanceEntre: centre et: newLocation]];
+    
+    
+}
+
+- (CLLocationDistance) distanceEntre:(CLLocationCoordinate2D) center et:(CLLocation *) position {
+    double centerLat = center.latitude * radianConst;
+    double centerLong = center.longitude * radianConst;
+    double positionLat = position.coordinate.latitude * radianConst;
+    double positionLong = position.coordinate.longitude * radianConst;
+    
+    double deltaLat = centerLat - positionLat;
+    double deltaLong = centerLong - positionLong;
+    
+    double a = pow(sin(deltaLat/2), 2)
+    + cos(centerLat) * cos(positionLat) * pow(sin(deltaLong/2), 2);
+    double c = 2 * atan2(pow(a, 0.5), pow(1 - a, 0.5));
+    
+    return c * EARTHRADIUS * 1000;
+}
+
+- (void)startStandardUpdates
+{
+    manager = [[CLLocationManager alloc] init];
+    manager.delegate = self;
+    manager.desiredAccuracy = kCLLocationAccuracyBest;
+    manager.distanceFilter = kCLDistanceFilterNone;
+    
+    [manager startUpdatingLocation];
+    // [manager startMonitoringSignificantLocationChanges];
+}
+
+- (void)startSignificantChangeUpdates {
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    [locationManager startMonitoringSignificantLocationChanges];
+}
+
+- (void)startRegionMonitoring
+{
+    NSLog(@"Starting region monitoring");
+    
+    // Pass establishment lat long here
+    centre = CLLocationCoordinate2DMake(45.658023, 13.829520); // Padriciano
+   // centre = CLLocationCoordinate2DMake(18.5353662, 73.8985708);
+    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter:centre radius:5.0 identifier:@"Bingo"];
+//    coordonneesCibles.text = [NSString stringWithFormat: @"Coord Cibles\nLatitude : %f\nLongitude : %f", centre.latitude, centre.longitude];
+    [manager startMonitoringForRegion:regionCourante];
+}
+
+- (IBAction)setCoordinates:(id)sender {
+    [manager stopMonitoringForRegion:regionCourante];
+    centre = CLLocationCoordinate2DMake(manager.location.coordinate.latitude, manager.location.coordinate.longitude);
+    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter: centre radius: accuracy identifier: @"Region"];
+//    coordonneesCibles.text = [NSString stringWithFormat: @"Coord Cibles\nLatitude : %f\nLongitude : %f", centre.latitude, centre.longitude];
+    [manager startMonitoringForRegion: regionCourante];
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
+    NSLog(@"didEnterRegion");
+    [self doAlert];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Region Alert"
+                                                    message:@"You entered the region"
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil, nil];
+    [alert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
+    NSLog(@"didExitRegion");
+    [self donotAlert];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Region Alert"
+                                                    message:@"You exited the region"
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil, nil];
+    [alert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
+    NSLog(@"Monitoring failed");
+}
+
+
+- (IBAction)determinerAccuracy:(id)sender {
+    [manager stopMonitoringForRegion:regionCourante];
+//    self.accuracy = accuracySlider.value;
+    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter: centre radius: accuracy identifier: @"Region"];
+    
+    [manager startMonitoringForRegion:regionCourante];
+//    self.labelAccuracy.text = [NSString stringWithFormat:@"%.1f", [regionCourante radius]];
+    
+}
+
+-(void)doAlert
+{
+    UIAlertView *alertDialog;
+    UILocalNotification *scheduledAlert;
+    
+    alertDialog = [[UIAlertView alloc]
+                   initWithTitle: @"Local Notification"
+                   message:@"oh! my good that you enter in my area"
+                   delegate: nil
+                   cancelButtonTitle: @"Ok"
+                   otherButtonTitles: nil];
+    
+    //[alertDialog show];
+    
+    
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    scheduledAlert = [[UILocalNotification alloc] init];
+    scheduledAlert.applicationIconBadgeNumber=1;
+    scheduledAlert.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+    scheduledAlert.timeZone = [NSTimeZone defaultTimeZone];
+    scheduledAlert.repeatInterval = NSDayCalendarUnit;
+    scheduledAlert.alertBody = @"Ben arrivato a lavoro, ricorda di timbrare.";
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:scheduledAlert];
+    
+}
+
+-(void)donotAlert
+{
+    UIAlertView *alertDialog;
+    UILocalNotification *scheduledAlert;
+    
+    alertDialog = [[UIAlertView alloc]
+                   initWithTitle: @"Local Notification"
+                   message:@"Stai andando via? Ricorda di timbrare l'uscita"
+                   delegate: nil
+                   cancelButtonTitle: @"Ok"
+                   otherButtonTitles: nil];
+    
+   // [alertDialog show];
+    
+    
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    scheduledAlert = [[UILocalNotification alloc] init];
+    scheduledAlert.applicationIconBadgeNumber=1;
+    scheduledAlert.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+    scheduledAlert.timeZone = [NSTimeZone defaultTimeZone];
+    scheduledAlert.repeatInterval = NSDayCalendarUnit;
+    scheduledAlert.alertBody = @"Stai andando via? Ricorda di timbrare l'uscita";
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:scheduledAlert];
+    
+}
 
 
 @end

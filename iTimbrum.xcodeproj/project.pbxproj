@@ -41,6 +41,7 @@
 		EEB438B919482136007E4626 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B319482136007E4626 /* MessageUI.framework */; };
 		EEB438BA19482136007E4626 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B419482136007E4626 /* StoreKit.framework */; };
 		EEB438BB19482136007E4626 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B519482136007E4626 /* SystemConfiguration.framework */; };
+		EEE3CDEA194A560D0071FB9C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE3CDE9194A560D0071FB9C /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		EEB438B319482136007E4626 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		EEB438B419482136007E4626 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EEB438B519482136007E4626 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EEE3CDE9194A560D0071FB9C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEE3CDEA194A560D0071FB9C /* CoreLocation.framework in Frameworks */,
 				EEB438B619482136007E4626 /* AudioToolbox.framework in Frameworks */,
 				EEB438B719482136007E4626 /* AVFoundation.framework in Frameworks */,
 				EEB438B819482136007E4626 /* CoreTelephony.framework in Frameworks */,
@@ -163,6 +166,7 @@
 		EE30F279193E3DD500A79F73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EEE3CDE9194A560D0071FB9C /* CoreLocation.framework */,
 				EEB438B019482136007E4626 /* AudioToolbox.framework */,
 				EEB438B119482136007E4626 /* AVFoundation.framework */,
 				EEB438B219482136007E4626 /* CoreTelephony.framework */,
