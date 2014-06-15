@@ -226,11 +226,6 @@
 }
 - (IBAction)refreshAction:(id)sender {
     [_connecctor loadAccessLog];
-//    [manager stopMonitoringForRegion:regionCourante];
-//    centre = CLLocationCoordinate2DMake(manager.location.coordinate.latitude, manager.location.coordinate.longitude);
-//    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter: centre radius: accuracy identifier: @"Region"];
-//    //    coordonneesCibles.text = [NSString stringWithFormat: @"Coord Cibles\nLatitude : %f\nLongitude : %f", centre.latitude, centre.longitude];
-//    [manager startMonitoringForRegion: regionCourante];
 }
 
 -(void)updatePranzoSlider:(NSTimer *)timer{
@@ -265,9 +260,6 @@
      didUpdateToLocation:(CLLocation *)newLocation
             fromLocation:(CLLocation *)oldLocation {
     
-//    self.latitude.text = [NSString stringWithFormat:@"Latitude : %f", newLocation.coordinate.latitude] ;
-//    self.longitude.text = [NSString stringWithFormat:@"Longitude : %f", newLocation.coordinate.longitude] ;
-//    
     NSLog(@"Latitude : %f, Longitude : %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
     
     NSLog(@"Count: %i", _manager.monitoredRegions.count);
@@ -277,11 +269,6 @@
         NSLog(@"%i. Lat : %f, Long : %f, Radius: %f", i, region.center.latitude, region.center.longitude, region.radius);
         i++;
     }
-//    [self distanceEntre: centre et: newLocation];
-    
-//    distance.text = [NSString stringWithFormat:@"Distance: %.2fm", [self distanceEntre: centre et: newLocation]];
-    
-    
 }
 
 - (CLLocationDistance) distanceEntre:(CLLocationCoordinate2D) center et:(CLLocation *) position {
@@ -308,7 +295,6 @@
     manager.distanceFilter = kCLDistanceFilterNone;
     
     [manager startUpdatingLocation];
-    // [manager startMonitoringSignificantLocationChanges];
 }
 
 - (void)startSignificantChangeUpdates {
@@ -320,12 +306,8 @@
 - (void)startRegionMonitoring
 {
     NSLog(@"Starting region monitoring");
-    
-    // Pass establishment lat long here
-    centre = CLLocationCoordinate2DMake(45.658023, 13.829520); // Padriciano
-   // centre = CLLocationCoordinate2DMake(18.5353662, 73.8985708);
-    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter:centre radius:5.0 identifier:@"Bingo"];
-//    coordonneesCibles.text = [NSString stringWithFormat: @"Coord Cibles\nLatitude : %f\nLongitude : %f", centre.latitude, centre.longitude];
+    centre = CLLocationCoordinate2DMake(45.658102664404474, 13.82953941822052); // Padriciano
+    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter:centre radius:5.0 identifier:@"Esteco"];
     [manager startMonitoringForRegion:regionCourante];
 }
 
@@ -333,7 +315,6 @@
     [manager stopMonitoringForRegion:regionCourante];
     centre = CLLocationCoordinate2DMake(manager.location.coordinate.latitude, manager.location.coordinate.longitude);
     regionCourante = [[CLRegion alloc] initCircularRegionWithCenter: centre radius: accuracy identifier: @"Region"];
-//    coordonneesCibles.text = [NSString stringWithFormat: @"Coord Cibles\nLatitude : %f\nLongitude : %f", centre.latitude, centre.longitude];
     [manager startMonitoringForRegion: regionCourante];
     
 }
@@ -346,7 +327,7 @@
                                                    delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil, nil];
-    [alert show];
+    //    [alert show];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
@@ -357,7 +338,7 @@
                                                    delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil, nil];
-    [alert show];
+    //    [alert show];
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
@@ -365,15 +346,14 @@
 }
 
 
-- (IBAction)determinerAccuracy:(id)sender {
-    [manager stopMonitoringForRegion:regionCourante];
-//    self.accuracy = accuracySlider.value;
-    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter: centre radius: accuracy identifier: @"Region"];
-    
-    [manager startMonitoringForRegion:regionCourante];
-//    self.labelAccuracy.text = [NSString stringWithFormat:@"%.1f", [regionCourante radius]];
-    
-}
+//- (IBAction)determinerAccuracy:(id)sender {
+//    [manager stopMonitoringForRegion:regionCourante];
+//    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter: centre radius: accuracy identifier: @"Region"];
+//    
+//    [manager startMonitoringForRegion:regionCourante];
+//    //    self.labelAccuracy.text = [NSString stringWithFormat:@"%.1f", [regionCourante radius]];
+//    
+//}
 
 -(void)doAlert
 {
@@ -414,7 +394,7 @@
                    cancelButtonTitle: @"Ok"
                    otherButtonTitles: nil];
     
-   // [alertDialog show];
+    // [alertDialog show];
     
     
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
