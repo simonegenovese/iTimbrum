@@ -39,9 +39,10 @@
 		EEB438B719482136007E4626 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B119482136007E4626 /* AVFoundation.framework */; };
 		EEB438B819482136007E4626 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B219482136007E4626 /* CoreTelephony.framework */; };
 		EEB438B919482136007E4626 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B319482136007E4626 /* MessageUI.framework */; };
-		EEB438BA19482136007E4626 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B419482136007E4626 /* StoreKit.framework */; };
 		EEB438BB19482136007E4626 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB438B519482136007E4626 /* SystemConfiguration.framework */; };
+		EEB4EFA019520233004E8DD0 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB4EF9F19520233004E8DD0 /* SettingsViewController.m */; };
 		EEE3CDEA194A560D0071FB9C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE3CDE9194A560D0071FB9C /* CoreLocation.framework */; };
+		EEE9209E1952447B00FC2B62 /* define_location-26.png in Resources */ = {isa = PBXBuildFile; fileRef = EEE9209D1952447B00FC2B62 /* define_location-26.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,9 +106,11 @@
 		EEB438B119482136007E4626 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EEB438B219482136007E4626 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		EEB438B319482136007E4626 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		EEB438B419482136007E4626 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EEB438B519482136007E4626 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EEB4EF9E19520233004E8DD0 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ../SettingsViewController.h; sourceTree = "<group>"; };
+		EEB4EF9F19520233004E8DD0 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = ../SettingsViewController.m; sourceTree = "<group>"; };
 		EEE3CDE9194A560D0071FB9C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		EEE9209D1952447B00FC2B62 /* define_location-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "define_location-26.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +123,6 @@
 				EEB438B719482136007E4626 /* AVFoundation.framework in Frameworks */,
 				EEB438B819482136007E4626 /* CoreTelephony.framework in Frameworks */,
 				EEB438B919482136007E4626 /* MessageUI.framework in Frameworks */,
-				EEB438BA19482136007E4626 /* StoreKit.framework in Frameworks */,
 				EEB438BB19482136007E4626 /* SystemConfiguration.framework in Frameworks */,
 				EE30F27D193E3DD500A79F73 /* CoreGraphics.framework in Frameworks */,
 				EEB438AF194820F7007E4626 /* AdSupport.framework in Frameworks */,
@@ -171,7 +173,6 @@
 				EEB438B119482136007E4626 /* AVFoundation.framework */,
 				EEB438B219482136007E4626 /* CoreTelephony.framework */,
 				EEB438B319482136007E4626 /* MessageUI.framework */,
-				EEB438B419482136007E4626 /* StoreKit.framework */,
 				EEB438B519482136007E4626 /* SystemConfiguration.framework */,
 				EEB438AE194820F7007E4626 /* AdSupport.framework */,
 				EE30F27A193E3DD500A79F73 /* Foundation.framework */,
@@ -191,10 +192,12 @@
 				1B764F651940960A004825C8 /* Settings.bundle */,
 				EE30F28F193E3DD500A79F73 /* ViewController.h */,
 				EE30F290193E3DD500A79F73 /* ViewController.m */,
-				EE30F292193E3DD500A79F73 /* Images.xcassets */,
-				EE30F281193E3DD500A79F73 /* Supporting Files */,
+				EEB4EF9E19520233004E8DD0 /* SettingsViewController.h */,
+				EEB4EF9F19520233004E8DD0 /* SettingsViewController.m */,
 				EE514C0C19410AB600A9EE42 /* ZucchettiConnector.h */,
 				EE514C0D19410AB600A9EE42 /* ZucchettiConnector.m */,
+				EE30F292193E3DD500A79F73 /* Images.xcassets */,
+				EE30F281193E3DD500A79F73 /* Supporting Files */,
 			);
 			path = timbrum;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 		EE30F281193E3DD500A79F73 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EEE9209D1952447B00FC2B62 /* define_location-26.png */,
 				EE94CD2A1948EEC200D976E2 /* settings_filled-25.png */,
 				EEB4389D19481ED4007E4626 /* clock.png */,
 				EE0F7DB6194819CC001CA6FC /* backgrownd.png */,
@@ -311,6 +315,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 0;
 							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
 						};
 					};
 					EE30F297193E3DD500A79F73 = {
@@ -355,6 +362,7 @@
 				1BFBA2AB1941DFDA00B9F2D7 /* blurry.png in Resources */,
 				EE5121A81943088900E1D19D /* plus_1hour-512.png in Resources */,
 				EE30F28E193E3DD500A79F73 /* Main.storyboard in Resources */,
+				EEE9209E1952447B00FC2B62 /* define_location-26.png in Resources */,
 				EEB4389E19481ED4007E4626 /* clock.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,6 +384,7 @@
 			files = (
 				EE30F291193E3DD500A79F73 /* ViewController.m in Sources */,
 				EE514C0E19410AB600A9EE42 /* ZucchettiConnector.m in Sources */,
+				EEB4EFA019520233004E8DD0 /* SettingsViewController.m in Sources */,
 				EE30F28B193E3DD500A79F73 /* AppDelegate.m in Sources */,
 				EE30F287193E3DD500A79F73 /* main.m in Sources */,
 			);

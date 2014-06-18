@@ -75,6 +75,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [bannerView_ loadRequest:[GADRequest request]];
+
     NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSString * password = [standardUserDefaults objectForKey:@"pass_preference"];
     NSString * username = [standardUserDefaults objectForKey:@"name_preference"];
@@ -291,9 +293,8 @@
 {
     manager = [[CLLocationManager alloc] init];
     manager.delegate = self;
-    manager.desiredAccuracy = kCLLocationAccuracyBest;
-    manager.distanceFilter = kCLDistanceFilterNone;
-    
+    manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    manager.distanceFilter = 200; // meters
     [manager startUpdatingLocation];
 }
 
@@ -306,8 +307,12 @@
 - (void)startRegionMonitoring
 {
     NSLog(@"Starting region monitoring");
-    centre = CLLocationCoordinate2DMake(45.658102664404474, 13.82953941822052); // Padriciano
-    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter:centre radius:5.0 identifier:@"Esteco"];
+    NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSNumber * latitudine = [standardUserDefaults objectForKey:@"latitudine_preference"];
+     NSNumber * longitudine = [standardUserDefaults objectForKey:@"longitudine_preference"];
+
+    centre = CLLocationCoordinate2DMake([latitudine floatValue], [longitudine floatValue]); // Padriciano
+    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter:centre radius:4.0 identifier:@"Esteco"];
     [manager startMonitoringForRegion:regionCourante];
 }
 
