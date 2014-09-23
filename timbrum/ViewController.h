@@ -11,6 +11,7 @@
 // Import GADBannerView's definition from the SDK
 #import "GADBannerView.h"
 #import <CoreLocation/CoreLocation.h>
+#include "VerificaTimbratura.h"
 
 #endif
 @class ZucchettiConnector;
@@ -21,10 +22,12 @@
     CLLocationDistance accuracy;
     CLRegion *regionCourante;
     CLLocationCoordinate2D centre;
+    BOOL isLastAnEnter;
+    BOOL isAtWork;
 }
 
 @property (readwrite) NSDate * dataUscitaPranzo;
-@property (readwrite) ZucchettiConnector *connecctor;
+@property (readwrite) ZucchettiConnector *connector;
 @property (readwrite) NSTimer *timer;
 @property (retain) NSString * durataPranzo;
 @property (strong, nonatomic) CLLocationManager *manager;

@@ -16,18 +16,19 @@
 @property (weak, nonatomic) IBOutlet UISlider *pranzoSlider;
 @property (weak, nonatomic) IBOutlet UILabel *hoursLabel;
 @property (weak, nonatomic) IBOutlet UILabel *hoursRes;
-
+@property (strong,nonatomic)            VerificaTimbratura * verifica ;
 
 @end
 
 @implementation ViewController
 
-@synthesize connecctor = _connecctor;
+@synthesize connector = _connector;
 @synthesize dataUscitaPranzo = _dataUscitaPranzo;
 @synthesize manager;
 @synthesize accuracy;
 @synthesize regionCourante;
 @synthesize centre;
+
 
 - (void)viewDidLoad
 {
@@ -36,10 +37,10 @@
                                              selector:@selector(becomeActive:)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
+    _verifica = [[VerificaTimbratura alloc] init];
     
-    
-    _connecctor = [[ZucchettiConnector alloc] init];
-    [_connecctor setMainView:self];
+    _connector = [[ZucchettiConnector alloc] init];
+    [_connector setMainView:self];
     
     // Create a view of the standard size at the top of the screen.
     // Available AdSize constants are explained in GADAdSize.h.
@@ -60,7 +61,7 @@
     [self startStandardUpdates];
     
     
-    if ([CLLocationManager regionMonitoringAvailable]) {
+    if ([CLLocationManager isMonitoringAvailableForClass:[CLRegion class]]) {
         [self startRegionMonitoring];
         NSLog(@"Region monitoring available");
     }
@@ -72,11 +73,20 @@
     [self viewDidAppear:YES];
 }
 
+- (void)connect:(NSString *)zucchettiUrl password:(NSString *)password username:(NSString *)username
+{
+    [_connector sendLoginRequest:username password:password url:zucchettiUrl];
+    [NSTimer scheduledTimerWithTimeInterval: 2.0
+                                     target: self
+                                   selector:@selector(reloadPage:)
+                                   userInfo: nil repeats:NO];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [bannerView_ loadRequest:[GADRequest request]];
-
+    
     NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSString * password = [standardUserDefaults objectForKey:@"pass_preference"];
     NSString * username = [standardUserDefaults objectForKey:@"name_preference"];
@@ -93,7 +103,9 @@
         [self loadHTML:@"Durata pranzo non configurata"];
     }else {
         [_pranzoSlider setMaximumValue:[_durataPranzo floatValue]];
-        [_connecctor sendLoginRequest:username password:password url:zucchettiUrl];
+        
+        [self connect:zucchettiUrl password:password username:username];
+        
         [self updatePranzoSlider:nil];
         [self startRegionMonitoring];
     }
@@ -109,17 +121,44 @@
 - (IBAction)sliderAction:(id)sender {
     if ([_slider value] == [_slider minimumValue] && ![_slider isHighlighted] ) {
         NSLog(@"Enter");
+        if(isLastAnEnter){
+            [_verifica setConnector:_connector];
+            [_verifica setTimbratura:@"E"];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Doppia Entrata"
+                                                            message:@"Attenzione esiste già una timbratura per l'ingresso. Sei sicuro di voler procedere?"
+                                                           delegate:_verifica
+                                                  cancelButtonTitle:@"Annulla"
+                                                  otherButtonTitles:@"Timbra", nil];
+            [alert show];
+            
+        } else{
+            [_connector timbra:@"E"];
+        }
         [_slider setEnabled:false];
-        [_connecctor timbra:@"E"];
-        [_connecctor loadAccessLog];
+        [_connector loadAccessLog];
     } else if ([_slider value] == [_slider maximumValue] ){
         NSLog(@"Exit");
+        if(!isLastAnEnter){
+            [_verifica setConnector:_connector];
+            [_verifica setTimbratura:@"U"];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Doppia Uscita"
+                                                            message:@"Attenzione esiste già una timbratura per l'uscita. Sei sicuro di voler procedere?"
+                                                           delegate:_verifica
+                                                  cancelButtonTitle:@"Annulla"
+                                                  otherButtonTitles:@"Timbra", nil];
+            [alert show];
+        }else{
+            [_connector timbra:@"U"];
+        }
         [_slider setEnabled:false];
-        [_connecctor timbra:@"U"];
-        [_connecctor loadAccessLog];
+        [_connector loadAccessLog];
     }
     [_slider setValue:([_slider maximumValue]-[_slider minimumValue])/2 animated:true];
     [_slider reloadInputViews];
+    [NSTimer scheduledTimerWithTimeInterval: 0.50
+                                     target: self
+                                   selector:@selector(reloadPage:)
+                                   userInfo: nil repeats:NO];
 }
 
 
@@ -134,8 +173,8 @@
 - (IBAction)pranzoAction:(id)sender {
     if ([_pranzoSlider value] >= [_pranzoSlider maximumValue] ){
         NSLog(@"Exit Pranzo");
-        [_connecctor timbra:@"U"];
-        [_connecctor loadAccessLog];
+        [_connector timbra:@"U"];
+        [_connector loadAccessLog];
         _dataUscitaPranzo = [[NSDate alloc] init];
         UILocalNotification* localNotification = [[UILocalNotification alloc] init];
         localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:[_durataPranzo integerValue]*60];
@@ -169,7 +208,11 @@
 - (void)setTimeAndRemaining:(NSInteger)minTot {
     [_hoursLabel setText:[[NSString alloc]initWithFormat:@"%d:%02d",(int)minTot/60,(int)minTot%60]];
     [_hoursRes setText:[[NSString alloc]initWithFormat:@"%d:%02d",(int)(480-minTot)/60,(int)(480-minTot)%60]];
-    if (minTot<480) {
+    if (workFinishedNotif!=nil && !isLastAnEnter) {
+        [[UIApplication sharedApplication]  cancelLocalNotification:workFinishedNotif];
+    }
+    
+    if (minTot<480 && isLastAnEnter) {
         if (workFinishedNotif!=nil) {
             [[UIApplication sharedApplication]  cancelLocalNotification:workFinishedNotif];
         }
@@ -183,9 +226,12 @@
 }
 
 -(void) loadNewDataList:(NSArray*) array{
-    NSMutableString *logs = [[NSMutableString alloc] initWithString:@"<html><head></head><body style='color:white;background-color: transparent;'><table border='0' align='center'>"];
+    NSMutableString *logs = [[NSMutableString alloc] initWithString:@"<html><head></head><body style='color:white;background-color: transparent;'>Timbrature:</br><table border='0' align='center'>"];
     NSInteger minTot = 0;
-    BOOL isLastAnEnter= false;
+    isLastAnEnter= false;
+    if ([array count]<=0) {
+        return;
+    }
     for (int i =0; i<[array count]-1; i++) {
         NSString *timbratura = [[array objectAtIndex:i] objectAtIndex:2] ;
         if ([timbratura isEqualToString:@"U"]) {
@@ -223,11 +269,13 @@
     [self setTimeAndRemaining:minTot];
     [_webView loadHTMLString:logs baseURL:nil];
     [_slider setEnabled:true];
-    
-    
 }
+
 - (IBAction)refreshAction:(id)sender {
-    [_connecctor loadAccessLog];
+    [_connector loadAccessLog];
+}
+-(void)reloadPage:(NSTimer *)timer{
+    [_connector loadAccessLog];
 }
 
 -(void)updatePranzoSlider:(NSTimer *)timer{
@@ -264,7 +312,7 @@
     
     NSLog(@"Latitude : %f, Longitude : %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
     
-    NSLog(@"Count: %i", _manager.monitoredRegions.count);
+    //NSLog(@"Count: %i", _manager.monitoredRegions.count);
     CLRegion *region;// = (CLRegion *) _manager.monitoredRegions.anyObject;
     int i = 1;
     for (region in _manager.monitoredRegions) {
@@ -293,8 +341,8 @@
 {
     manager = [[CLLocationManager alloc] init];
     manager.delegate = self;
-    manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-    manager.distanceFilter = 200; // meters
+    manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    manager.distanceFilter = 10; // meters
     [manager startUpdatingLocation];
 }
 
@@ -309,78 +357,53 @@
     NSLog(@"Starting region monitoring");
     NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSNumber * latitudine = [standardUserDefaults objectForKey:@"latitudine_preference"];
-     NSNumber * longitudine = [standardUserDefaults objectForKey:@"longitudine_preference"];
-
-    centre = CLLocationCoordinate2DMake([latitudine floatValue], [longitudine floatValue]); // Padriciano
-    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter:centre radius:4.0 identifier:@"Esteco"];
+    NSNumber * longitudine = [standardUserDefaults objectForKey:@"longitudine_preference"];
+    
+    centre = CLLocationCoordinate2DMake([latitudine floatValue], [longitudine floatValue]);
+    regionCourante = [[CLCircularRegion alloc] initWithCenter:centre
+                                               radius:25.0
+                                           identifier:@"Work"];
     [manager startMonitoringForRegion:regionCourante];
 }
 
 - (IBAction)setCoordinates:(id)sender {
     [manager stopMonitoringForRegion:regionCourante];
     centre = CLLocationCoordinate2DMake(manager.location.coordinate.latitude, manager.location.coordinate.longitude);
-    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter: centre radius: accuracy identifier: @"Region"];
+    regionCourante = [[CLCircularRegion alloc] initWithCenter:centre
+                                                       radius:25.0
+                                                   identifier:@"Work"];
     [manager startMonitoringForRegion: regionCourante];
     
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
     NSLog(@"didEnterRegion");
-    [self doAlert];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Region Alert"
-                                                    message:@"You entered the region"
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil, nil];
-    //    [alert show];
+    if([self todayIsWorkingDay] && !isAtWork){
+        [self doAlert];
+    }
+    isAtWork = true;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
     NSLog(@"didExitRegion");
-    [self donotAlert];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Region Alert"
-                                                    message:@"You exited the region"
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil, nil];
-    //    [alert show];
+    if([self todayIsWorkingDay] && isAtWork){
+        [self donotAlert];
+    }
+    isAtWork =false;
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
     NSLog(@"Monitoring failed");
 }
 
-
-//- (IBAction)determinerAccuracy:(id)sender {
-//    [manager stopMonitoringForRegion:regionCourante];
-//    regionCourante = [[CLRegion alloc] initCircularRegionWithCenter: centre radius: accuracy identifier: @"Region"];
-//    
-//    [manager startMonitoringForRegion:regionCourante];
-//    //    self.labelAccuracy.text = [NSString stringWithFormat:@"%.1f", [regionCourante radius]];
-//    
-//}
-
 -(void)doAlert
 {
-    UIAlertView *alertDialog;
     UILocalNotification *scheduledAlert;
-    
-    alertDialog = [[UIAlertView alloc]
-                   initWithTitle: @"Local Notification"
-                   message:@"oh! my good that you enter in my area"
-                   delegate: nil
-                   cancelButtonTitle: @"Ok"
-                   otherButtonTitles: nil];
-    
-    //[alertDialog show];
-    
-    
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     scheduledAlert = [[UILocalNotification alloc] init];
     scheduledAlert.applicationIconBadgeNumber=1;
-    scheduledAlert.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+    scheduledAlert.fireDate = nil;
     scheduledAlert.timeZone = [NSTimeZone defaultTimeZone];
-    scheduledAlert.repeatInterval = NSDayCalendarUnit;
     scheduledAlert.alertBody = @"Ben arrivato a lavoro, ricorda di timbrare.";
     
     [[UIApplication sharedApplication] scheduleLocalNotification:scheduledAlert];
@@ -389,29 +412,52 @@
 
 -(void)donotAlert
 {
-    UIAlertView *alertDialog;
     UILocalNotification *scheduledAlert;
-    
-    alertDialog = [[UIAlertView alloc]
-                   initWithTitle: @"Local Notification"
-                   message:@"Stai andando via? Ricorda di timbrare l'uscita"
-                   delegate: nil
-                   cancelButtonTitle: @"Ok"
-                   otherButtonTitles: nil];
-    
-    // [alertDialog show];
-    
-    
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     scheduledAlert = [[UILocalNotification alloc] init];
     scheduledAlert.applicationIconBadgeNumber=1;
-    scheduledAlert.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+    scheduledAlert.fireDate = nil;
     scheduledAlert.timeZone = [NSTimeZone defaultTimeZone];
-    scheduledAlert.repeatInterval = NSDayCalendarUnit;
     scheduledAlert.alertBody = @"Stai andando via? Ricorda di timbrare l'uscita";
     
     [[UIApplication sharedApplication] scheduleLocalNotification:scheduledAlert];
     
+}
+
+-(BOOL)todayIsWorkingDay{
+    NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL domenica = [standardUserDefaults boolForKey:@"domenica_preference"];
+    BOOL lunedi = [standardUserDefaults boolForKey:@"lunedi_preference"];
+    BOOL martedi = [standardUserDefaults boolForKey:@"martedi_preference"];
+    BOOL mercoled = [standardUserDefaults boolForKey:@"mercoledi_preference"];
+    BOOL giovedi = [standardUserDefaults boolForKey:@"giovedi_preference"];
+    BOOL venerdi = [standardUserDefaults boolForKey:@"venerdi_preference"];
+    BOOL sabato = [standardUserDefaults boolForKey:@"sabato_preference"];
+    
+    NSCalendar* cal = [NSCalendar currentCalendar];
+    NSDate *now = [[NSDate alloc] init];
+    NSDateComponents* components = [cal components:NSWeekdayCalendarUnit fromDate:now];
+    NSInteger weekday = [components weekday];
+    
+    switch (weekday) {
+        case 1:
+            return domenica;
+        case 2:
+            return lunedi;
+        case 3:
+            return martedi;
+        case 4:
+            return mercoled;
+        case 5:
+            return giovedi;
+        case 6:
+            return venerdi;
+        case 7:
+            return sabato;
+        default:
+            break;
+    }
+    return false;
 }
 
 

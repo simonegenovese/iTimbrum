@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import <SystemConfiguration/CaptiveNetwork.h>
 
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *durataPausa;
@@ -16,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *latitudine;
 @property (weak, nonatomic) IBOutlet UITextField *longitudine;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (weak, nonatomic) IBOutlet UILabel *wifiLabel;
 
 @end
 
@@ -46,6 +48,20 @@
     _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
     _locationManager.distanceFilter = 200; // meters
     [_locationManager startUpdatingLocation];
+    
+    NSString *currentSSID = @"";
+    CFArrayRef myArray = CNCopySupportedInterfaces();
+    if (myArray != nil){
+        NSDictionary* myDict = (NSDictionary *) CFBridgingRelease(CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(myArray, 0)));
+        if (myDict!=nil){
+            currentSSID=[myDict valueForKey:@"SSID"];
+        } else {
+            currentSSID=@"<<NONE>>";
+        }
+    } else {
+        currentSSID=@"<<NONE>>";
+    }
+    [_wifiLabel setText:currentSSID];
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,7 +69,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)viewDidDisappear:(BOOL)animated{
+
+- (void)viewWillDisappear:(BOOL)animated{
     NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
     [standardUserDefaults setObject:[_durataPausa text] forKey:@"pranzo_preference"];
     [standardUserDefaults setObject:[_password text] forKey:@"pass_preference"];
@@ -61,8 +78,11 @@
     [standardUserDefaults setObject:[_urlZucchetti text] forKey:@"zucchetti_preference"];
     [standardUserDefaults setObject:[_latitudine text] forKey:@"latitudine_preference"];
     [standardUserDefaults setObject:[_longitudine text] forKey:@"longitudine_preference"];
-
+    
     [standardUserDefaults synchronize];
+}
+- (void)viewDidDisappear:(BOOL)animated{
+
 }
 /*
  #pragma mark - Navigation
@@ -82,6 +102,10 @@
     [_latitudine setText:[[NSString alloc] initWithFormat:@"%f",coordinate.latitude]];
     [_longitudine setText:[[NSString alloc] initWithFormat:@"%f",coordinate.longitude]];
     
+}
+- (IBAction)userDoneEnteringText:(id)sender {
+    UITextField *theField = (UITextField*)sender;
+    [theField resignFirstResponder];
 }
 
 @end

@@ -11,6 +11,9 @@
 #import <CoreData/CoreData.h>
 #import "ViewController.h"
 #endif
+
+extern NSString * const CONNECTION_ERROR;
+
 @class ViewController;
 @interface ZucchettiConnector : NSObject
 
