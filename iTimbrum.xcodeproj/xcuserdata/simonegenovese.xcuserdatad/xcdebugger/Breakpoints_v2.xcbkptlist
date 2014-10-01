@@ -474,11 +474,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KitLocateDelegateClass.m"
-            timestampString = "433858103.292614"
+            timestampString = "433859211.071007"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "-geofencesOut:"
             landmarkType = "5">
          </BreakpointContent>
