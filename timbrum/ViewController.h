@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ZucchettiConnector.h"
 // Import GADBannerView's definition from the SDK
-#import "GADBannerView.h"
+#import "../GoogleMobileAdsSdkiOS-6.12.0/GADBannerView.h"
 #import <CoreLocation/CoreLocation.h>
 #include "VerificaTimbratura.h"
 

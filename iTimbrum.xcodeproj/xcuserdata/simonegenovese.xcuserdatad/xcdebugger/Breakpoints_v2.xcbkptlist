@@ -463,7 +463,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
             endingLineNumber = "30"
-            landmarkName = "-geofencesIn:"
+            landmarkName = "-startLocation"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -479,7 +479,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "43"
             endingLineNumber = "43"
-            landmarkName = "-geofencesOut:"
+            landmarkName = "-geofencesIn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
