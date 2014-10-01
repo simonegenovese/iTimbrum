@@ -7,10 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import "KitLocateDelegateClass.h"
 
+@interface AppDelegate ()
+@property (strong,nonatomic) KitLocateDelegateClass * kitLocale ;
+@end
 @implementation AppDelegate
 
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -49,7 +53,10 @@
         // Set icon badge number to zero
         application.applicationIconBadgeNumber = 0;
     }
-    
+    _kitLocale  = [[KitLocateDelegateClass alloc] init];
+    [KitLocate initKitLocateWithDelegate:_kitLocale APIKey:@"b444fe97-baa8-4b13-8114-381ed0be7761"];
+    [_kitLocale startLocation];
+
     return YES;
 }
 

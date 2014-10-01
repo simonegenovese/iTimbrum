@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import <KitLocate/KitLocate.h>
+
 #define radianConst M_PI/180.0
 #define EARTHRADIUS 6371
 
@@ -17,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *hoursLabel;
 @property (weak, nonatomic) IBOutlet UILabel *hoursRes;
 @property (strong,nonatomic)            VerificaTimbratura * verifica ;
-
 @end
 
 @implementation ViewController
@@ -56,15 +57,15 @@
                                      self.view.center.y + 150);
     [self.view addSubview:bannerView_];
     
-    // Initiate a generic request to load it with an ad.
+//     Initiate a generic request to load it with an ad.
     [bannerView_ loadRequest:[GADRequest request]];
-    [self startStandardUpdates];
+//    [self startStandardUpdates];
     
     
-    if ([CLLocationManager isMonitoringAvailableForClass:[CLRegion class]]) {
-        [self startRegionMonitoring];
-        NSLog(@"Region monitoring available");
-    }
+//    if ([CLLocationManager isMonitoringAvailableForClass:[CLRegion class]]) {
+//        [self startRegionMonitoring];
+//        NSLog(@"Region monitoring available");
+//    }
 }
 
 
