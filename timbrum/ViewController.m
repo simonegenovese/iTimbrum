@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import <KitLocate/KitLocate.h>
+#import <SystemConfiguration/CaptiveNetwork.h>
 
 #define radianConst M_PI/180.0
 #define EARTHRADIUS 6371
@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *pranzoSlider;
 @property (weak, nonatomic) IBOutlet UILabel *hoursLabel;
 @property (weak, nonatomic) IBOutlet UILabel *hoursRes;
-@property (strong,nonatomic)            VerificaTimbratura * verifica ;
+@property (strong,nonatomic) VerificaTimbratura * verifica ;
 @end
 
 @implementation ViewController
@@ -29,6 +29,8 @@
 @synthesize accuracy;
 @synthesize regionCourante;
 @synthesize centre;
+@synthesize reach = _reach;
+
 
 
 - (void)viewDidLoad
@@ -43,29 +45,68 @@
     _connector = [[ZucchettiConnector alloc] init];
     [_connector setMainView:self];
     
-    // Create a view of the standard size at the top of the screen.
-    // Available AdSize constants are explained in GADAdSize.h.
-    bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+    [self startStandardUpdates];
     
-    // Specify the ad unit ID.
-    bannerView_.adUnitID = @"ca-app-pub-4203217046813060/5414483033";
+    if ([CLLocationManager isMonitoringAvailableForClass:[CLRegion class]]) {
+        [self startRegionMonitoring];
+        NSLog(@"Region monitoring available");
+    }
     
-    // Let the runtime know which UIViewController to restore after taking
-    // the user wherever the ad goes and add it to the view hierarchy.
-    bannerView_.rootViewController = self;
-    bannerView_.center = CGPointMake(self.view.center.x,
-                                     self.view.center.y + 150);
-    [self.view addSubview:bannerView_];
+    // Allocate a reachability object
+    reach = [Reachability reachabilityWithHostname:@"www.google.com"];
+    __weak typeof(self) weakSelf = self;
+    __weak typeof(Reachability*) weakReach = reach;
+    // Set the blocks
+    reach.reachableBlock = ^(Reachability*reach)
+    {
+        NetworkStatus netStatus =[weakReach currentReachabilityStatus];
+        switch (netStatus)
+        {
+            case NotReachable:
+            {
+                break;
+            }
+            case ReachableViaWWAN:
+            {
+                [weakSelf doAlert:@"Non sei connesso alla WiFi"];
+
+                break;
+            }
+            case ReachableViaWiFi:
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString *currentSSID = @"";
+                    CFArrayRef myArray = CNCopySupportedInterfaces();
+                    if (myArray != nil){
+                        NSDictionary* myDict = (NSDictionary *) CFBridgingRelease(CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(myArray, 0)));
+                        if (myDict!=nil){
+                            currentSSID=[myDict valueForKey:@"SSID"];
+                            NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
+                            if ([currentSSID isEqualToString:[standardUserDefaults objectForKey:@"wifi_preference"]]) {
+                                [weakSelf doAlert:@"Sei connesso alla WiFi, effettua accesso"];
+                            }
+                        }
+                    }
+                    NSLog(@"REACHABLE!");
+                });
+                break;
+            }
+            default:
+            {
+                break;
+            }
+                
+        }
+        
+    };
     
-//     Initiate a generic request to load it with an ad.
-    [bannerView_ loadRequest:[GADRequest request]];
-//    [self startStandardUpdates];
-    
-    
-//    if ([CLLocationManager isMonitoringAvailableForClass:[CLRegion class]]) {
-//        [self startRegionMonitoring];
-//        NSLog(@"Region monitoring available");
-//    }
+    reach.unreachableBlock = ^(Reachability*reach)
+    {
+        [weakSelf doAlert:@"Non Raggiungibile"];
+        
+        NSLog(@"UNREACHABLE!");
+    };
+        [reach startNotifier];
 }
 
 
@@ -86,7 +127,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [bannerView_ loadRequest:[GADRequest request]];
     
     NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSString * password = [standardUserDefaults objectForKey:@"pass_preference"];
@@ -181,6 +221,9 @@
         localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:[_durataPranzo integerValue]*60];
         localNotification.alertBody = @"E' ora di rientrare!";
         localNotification.applicationIconBadgeNumber++;
+        localNotification.soundName = UILocalNotificationDefaultSoundName;
+        [localNotification setHasAction:true];
+        
         localNotification.timeZone = [NSTimeZone defaultTimeZone];
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         _timer = [NSTimer scheduledTimerWithTimeInterval: 60.0
@@ -198,9 +241,9 @@
 - (void)calcola:(NSInteger *)hour_p minute_p:(NSInteger *)minute_p {
     NSDate *today = [NSDate date];
     NSCalendar *gregorian = [[NSCalendar alloc]
-                             initWithCalendarIdentifier:NSGregorianCalendar];
+                             initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components =
-    [gregorian components:(NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:today];
+    [gregorian components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:today];
     
     *hour_p = [components hour];
     *minute_p = [components minute];
@@ -221,6 +264,9 @@
         workFinishedNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:(480-minTot)*60];
         workFinishedNotif.alertBody = @"Congratulazioni: hai lavorato 8 ore!";
         workFinishedNotif.applicationIconBadgeNumber++;
+        workFinishedNotif.soundName = UILocalNotificationDefaultSoundName;
+        [workFinishedNotif setHasAction:true];
+        
         workFinishedNotif.timeZone = [NSTimeZone defaultTimeZone];
         [[UIApplication sharedApplication] scheduleLocalNotification:workFinishedNotif];
     }
@@ -283,14 +329,14 @@
     if (_dataUscitaPranzo!=nil) {
         NSDate * now = [[NSDate alloc] init];
         NSCalendar *gregorian = [[NSCalendar alloc]
-                                 initWithCalendarIdentifier:NSGregorianCalendar];
+                                 initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         
-        NSUInteger unitFlags = NSMinuteCalendarUnit;
+        NSUInteger unitFlags = NSCalendarUnitMinute;
         
         NSDateComponents *components = [gregorian components:unitFlags
                                                     fromDate:_dataUscitaPranzo
                                                       toDate:now options:0];
-        NSNumber *minutes =  [NSNumber numberWithInt:[components minute]];
+        NSNumber *minutes =  [NSNumber numberWithDouble:[components minute]];
         [_pranzoSlider setValue:[_pranzoSlider maximumValue]-[minutes floatValue] animated:true];
         if ([_pranzoSlider value]==[_pranzoSlider minimumValue]) {
             [_timer invalidate];
@@ -342,6 +388,9 @@
 {
     manager = [[CLLocationManager alloc] init];
     manager.delegate = self;
+    
+    [manager requestAlwaysAuthorization];
+    
     manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
     manager.distanceFilter = 10; // meters
     [manager startUpdatingLocation];
@@ -362,8 +411,8 @@
     
     centre = CLLocationCoordinate2DMake([latitudine floatValue], [longitudine floatValue]);
     regionCourante = [[CLCircularRegion alloc] initWithCenter:centre
-                                               radius:25.0
-                                           identifier:@"Work"];
+                                                       radius:25.0
+                                                   identifier:@"Work"];
     [manager startMonitoringForRegion:regionCourante];
 }
 
@@ -380,7 +429,7 @@
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
     NSLog(@"didEnterRegion");
     if([self todayIsWorkingDay] && !isAtWork){
-        [self doAlert];
+        [self doAlert:@"E' ora di rientrare"];
     }
     isAtWork = true;
 }
@@ -397,7 +446,7 @@
     NSLog(@"Monitoring failed");
 }
 
--(void)doAlert
+-(void)doAlert:(NSString *)message
 {
     UILocalNotification *scheduledAlert;
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
@@ -405,8 +454,9 @@
     scheduledAlert.applicationIconBadgeNumber=1;
     scheduledAlert.fireDate = nil;
     scheduledAlert.timeZone = [NSTimeZone defaultTimeZone];
-    scheduledAlert.alertBody = @"Ben arrivato a lavoro, ricorda di timbrare.";
-    
+    scheduledAlert.alertBody = message;
+    [scheduledAlert setHasAction:true];
+    scheduledAlert.soundName = UILocalNotificationDefaultSoundName;
     [[UIApplication sharedApplication] scheduleLocalNotification:scheduledAlert];
     
 }
@@ -419,6 +469,8 @@
     scheduledAlert.applicationIconBadgeNumber=1;
     scheduledAlert.fireDate = nil;
     scheduledAlert.timeZone = [NSTimeZone defaultTimeZone];
+    scheduledAlert.soundName = UILocalNotificationDefaultSoundName;
+    [scheduledAlert setHasAction:true];
     scheduledAlert.alertBody = @"Stai andando via? Ricorda di timbrare l'uscita";
     
     [[UIApplication sharedApplication] scheduleLocalNotification:scheduledAlert];
@@ -437,7 +489,7 @@
     
     NSCalendar* cal = [NSCalendar currentCalendar];
     NSDate *now = [[NSDate alloc] init];
-    NSDateComponents* components = [cal components:NSWeekdayCalendarUnit fromDate:now];
+    NSDateComponents* components = [cal components:NSCalendarUnitWeekday fromDate:now];
     NSInteger weekday = [components weekday];
     
     switch (weekday) {

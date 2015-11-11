@@ -49,19 +49,8 @@
     _locationManager.distanceFilter = 200; // meters
     [_locationManager startUpdatingLocation];
     
-    NSString *currentSSID = @"";
-    CFArrayRef myArray = CNCopySupportedInterfaces();
-    if (myArray != nil){
-        NSDictionary* myDict = (NSDictionary *) CFBridgingRelease(CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(myArray, 0)));
-        if (myDict!=nil){
-            currentSSID=[myDict valueForKey:@"SSID"];
-        } else {
-            currentSSID=@"<<NONE>>";
-        }
-    } else {
-        currentSSID=@"<<NONE>>";
-    }
-    [_wifiLabel setText:currentSSID];
+    [_wifiLabel setText:[standardUserDefaults objectForKey:@"wifi_preference"]];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,6 +67,7 @@
     [standardUserDefaults setObject:[_urlZucchetti text] forKey:@"zucchetti_preference"];
     [standardUserDefaults setObject:[_latitudine text] forKey:@"latitudine_preference"];
     [standardUserDefaults setObject:[_longitudine text] forKey:@"longitudine_preference"];
+    [standardUserDefaults setObject:[_wifiLabel text] forKey:@"wifi_preference"];
     
     [standardUserDefaults synchronize];
 }
@@ -101,7 +91,19 @@
     
     [_latitudine setText:[[NSString alloc] initWithFormat:@"%f",coordinate.latitude]];
     [_longitudine setText:[[NSString alloc] initWithFormat:@"%f",coordinate.longitude]];
-    
+    NSString *currentSSID = @"";
+    CFArrayRef myArray = CNCopySupportedInterfaces();
+    if (myArray != nil){
+        NSDictionary* myDict = (NSDictionary *) CFBridgingRelease(CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(myArray, 0)));
+        if (myDict!=nil){
+            currentSSID=[myDict valueForKey:@"SSID"];
+        } else {
+            currentSSID=@"<<NONE>>";
+        }
+    } else {
+        currentSSID=@"<<NONE>>";
+    }
+    [_wifiLabel setText:currentSSID];
 }
 - (IBAction)userDoneEnteringText:(id)sender {
     UITextField *theField = (UITextField*)sender;

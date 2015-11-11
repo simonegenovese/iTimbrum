@@ -14,7 +14,7 @@
 		<string>https://github.com/simonegenovese/iTimbrum.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>iTimbrum.xcodeproj/project.xcworkspace</string>
+	<string>iTimbrum.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>41B956C086140D7F3DA62ECA599D615F5FF23A93</key>

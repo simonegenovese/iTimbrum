@@ -7,10 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "KitLocateDelegateClass.h"
 
 @interface AppDelegate ()
-@property (strong,nonatomic) KitLocateDelegateClass * kitLocale ;
 @end
 @implementation AppDelegate
 
@@ -53,10 +51,14 @@
         // Set icon badge number to zero
         application.applicationIconBadgeNumber = 0;
     }
-    _kitLocale  = [[KitLocateDelegateClass alloc] init];
-    [KitLocate initKitLocateWithDelegate:_kitLocale APIKey:@"b444fe97-baa8-4b13-8114-381ed0be7761"];
-    [_kitLocale startLocation];
-
+    
+    UIUserNotificationType types = UIUserNotificationTypeBadge |  UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+    
+    UIUserNotificationSettings *mySettings =
+    [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    
+    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+  
     return YES;
 }
 

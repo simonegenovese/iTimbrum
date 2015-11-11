@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <KitLocate/KitLocate.h>
 
 @interface KitLocateDelegateClass : NSObject<KitLocateDelegate>
 - (void) startLocation;
